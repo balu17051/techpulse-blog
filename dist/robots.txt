@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://balu17051.github.io/techpulse-blog/sitemap.xml
