@@ -14,8 +14,8 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const base = import.meta.env.BASE_URL;
 
-// Dynamically load the markdown content
 const allPosts = import.meta.glob('../../blog/*.md', { eager: true });
 const postKey = Object.keys(allPosts).find(k => k.includes(post.slug));
 const postModule = postKey ? allPosts[postKey] : null;
@@ -48,7 +48,7 @@ const Content = postModule?.default || null;
     </div>
 
     <div class="mt-12 pt-8 border-t border-gray-800">
-      <a href="/blog/" class="text-primary hover:text-accent transition-colors font-medium">
+      <a href={base + "blog/"} class="text-primary hover:text-accent transition-colors font-medium">
         ← Zurück zum Blog
       </a>
     </div>
