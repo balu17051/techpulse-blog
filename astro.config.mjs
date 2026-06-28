@@ -4,6 +4,7 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   site: 'https://balu17051.github.io',
   base: '/techpulse-blog',
+  trailingSlash: 'always',
   integrations: [tailwind()],
   output: 'static',
 });
