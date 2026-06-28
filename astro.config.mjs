@@ -6,4 +6,5 @@ export default defineConfig({
   base: '/techpulse-blog',
   integrations: [tailwind()],
   output: 'static',
+  trailingSlash: 'always',
 });
