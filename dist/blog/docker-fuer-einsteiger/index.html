@@ -5,6 +5,78 @@ TechPulse
       prose-code:text-accent prose-code:bg-gray-800/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
       prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800
       prose-blockquote:border-primary prose-blockquote:text-gray-400
-      prose-img:rounded-xl"></div> <div class="mt-12 pt-8 border-t border-gray-800"> <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">
+      prose-img:rounded-xl"> <h2 id="was-ist-docker-eigentlich">Was ist Docker eigentlich?</h2>
+<p>Stell dir vor, du packst eine Anwendung mit all ihren Abhängigkeiten in eine Box. Diese Box läuft überall gleich — egal ob auf deinem Laptop, einem Server oder in der Cloud. Das ist Docker.</p>
+<h2 id="die-grundbegriffe">Die Grundbegriffe</h2>
+<ul>
+<li><strong>Image</strong> — Die Vorlage, das “Rezept” für einen Container</li>
+<li><strong>Container</strong> — Die laufende Instanz eines Images</li>
+<li><strong>Dockerfile</strong> — Die Bauanleitung für ein Image</li>
+<li><strong>Docker Compose</strong> — Orchestriert mehrere Container zusammen</li>
+<li><strong>Volume</strong> — Persistente Daten, die den Container-Neustart überleben</li>
+</ul>
+<h2 id="mein-erstes-setup-portainer">Mein erstes Setup: Portainer</h2>
+<p>Wenn du Docker lernst, starte mit <strong>Portainer</strong> — einer grafischen Oberfläche für Docker:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">version</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"3"</span></span>
+<span class="line"><span style="color:#85E89D">services</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  portainer</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    image</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">portainer/portainer-ce:latest</span></span>
+<span class="line"><span style="color:#85E89D">    ports</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">"9443:9443"</span></span>
+<span class="line"><span style="color:#85E89D">    volumes</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">/var/run/docker.sock:/var/run/docker.sock</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">portainer_data:/data</span></span>
+<span class="line"><span style="color:#85E89D">    restart</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">unless-stopped</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">volumes</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  portainer_data</span><span style="color:#E1E4E8">:</span></span></code></pre>
+<p>Das gibt dir eine Weboberfläche unter <code>https://deine-ip:9443</code>, mit der du Container verwalten kannst — ohne Kommandozeile.</p>
+<h2 id="docker-auf-truenas">Docker auf TrueNAS</h2>
+<p>TrueNAS bringt eine eigene Docker-Integration mit (Apps/Custom Apps). Die wichtigsten Tipps:</p>
+<ol>
+<li><strong>Immer Volumes nutzen</strong> — Container-Daten überleben sonst keinen Neustart</li>
+<li><strong>Netzwerke verstehen</strong> — Bridge für Isolation, Host für Performance</li>
+<li><strong>Ressourcen setzen</strong> — CPU und RAM Limits verhindern, dass ein Container alles frisst</li>
+<li><strong>Logs im Blick behalten</strong> — <code>docker logs container-name</code> ist dein bester Freund</li>
+</ol>
+<h2 id="nützliche-container-für-den-alltag">Nützliche Container für den Alltag</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Container</th><th>Zweck</th><th>Port</th></tr></thead><tbody><tr><td>Home Assistant</td><td>Smart Home</td><td>8123</td></tr><tr><td>Jellyfin</td><td>Medienserver</td><td>8096</td></tr><tr><td>Portainer</td><td>Docker-UI</td><td>9443</td></tr><tr><td>Vaultwarden</td><td>Passwort-Manager</td><td>8080</td></tr><tr><td>Nginx Proxy Manager</td><td>Reverse Proxy</td><td>81</td></tr></tbody></table>
+<h2 id="fazit">Fazit</h2>
+<p>Docker ist kein Hexenwerk. Der Einstieg ist simpler als man denkt — vor allem mit Tools wie Portainer. Und auf TrueNAS läuft das alles stabil und mit ZFS-Sicherheit im Hintergrund.</p> </div> <div class="mt-12 pt-8 border-t border-gray-800"> <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">
 ← Zurück zum Blog
 </a> </div> </article>  </main> <footer class="border-t border-gray-800 mt-16"> <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-center text-gray-500 text-sm"> <p>© 2026 TechPulse – powered by ☕ & 🤖</p> </div> </footer> </body></html>

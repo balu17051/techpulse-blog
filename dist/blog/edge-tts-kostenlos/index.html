@@ -5,6 +5,94 @@ TechPulse
       prose-code:text-accent prose-code:bg-gray-800/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
       prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800
       prose-blockquote:border-primary prose-blockquote:text-gray-400
-      prose-img:rounded-xl"></div> <div class="mt-12 pt-8 border-t border-gray-800"> <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">
+      prose-img:rounded-xl"> <h2 id="das-problem">Das Problem</h2>
+<p>Gute Text-to-Speech-Engines kosten Geld. OpenAI TTS: $0.015/1K Zeichen. Amazon Polly: Kreditkarte nötig. Google Cloud TTS: Komplexe Einrichtung. Was ist mit denen, die einfach nur eine Sprachnachricht erzeugen wollen?</p>
+<h2 id="die-lösung-edge-tts">Die Lösung: Edge TTS</h2>
+<p>Microsoft bietet über Edge Browser eine TTS-Engine an, die man auch ohne Browser nutzen kann. Und sie ist <strong>komplett kostenlos</strong>.</p>
+<h3 id="warum-edge-tts-genial-ist">Warum Edge TTS genial ist</h3>
+<ul>
+<li>✅ <strong>Kein API-Key</strong> — Einfach nutzen</li>
+<li>✅ <strong>Keine Anmeldung</strong> — Kein Account nötig</li>
+<li>✅ <strong>Deutsche Neural-Stimmen</strong> — Sehr natürlich</li>
+<li>✅ <strong>Kein Rate-Limit</strong> — Zumindest keines, das normale Nutzer trifft</li>
+<li>✅ <strong>Schnell</strong> — Generierung in Sekunden</li>
+</ul>
+<h3 id="die-deutschen-stimmen">Die deutschen Stimmen</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Stimme</th><th>Geschlecht</th><th>Qualität</th></tr></thead><tbody><tr><td>de-DE-ConradNeural</td><td>Männlich</td><td>⭐⭐⭐⭐⭐</td></tr><tr><td>de-DE-KatjaNeural</td><td>Weiblich</td><td>⭐⭐⭐⭐⭐</td></tr><tr><td>de-DE-ElviraNeural</td><td>Weiblich</td><td>⭐⭐⭐⭐</td></tr></tbody></table>
+<h3 id="python-nutzung">Python-Nutzung</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> edge_tts</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> asyncio</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> def</span><span style="color:#B392F0"> generate_speech</span><span style="color:#E1E4E8">(text, output_path):</span></span>
+<span class="line"><span style="color:#E1E4E8">    communicate </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> edge_tts.Communicate(text, </span><span style="color:#9ECBFF">"de-DE-ConradNeural"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#E1E4E8"> communicate.save(output_path)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">asyncio.run(generate_speech(</span><span style="color:#9ECBFF">"Hallo Welt!"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"output.mp3"</span><span style="color:#E1E4E8">))</span></span></code></pre>
+<h2 id="vergleich-mit-der-konkurrenz">Vergleich mit der Konkurrenz</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Anbieter</th><th>Kosten</th><th>Deutsch</th><th>Qualität</th></tr></thead><tbody><tr><td>Edge TTS</td><td>Kostenlos</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐⭐⭐</td></tr><tr><td>ElevenLabs</td><td>10K Zeich./Monat</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐⭐⭐</td></tr><tr><td>OpenAI TTS</td><td>$0.015/1K Zeich.</td><td>⭐⭐⭐</td><td>⭐⭐⭐⭐⭐</td></tr><tr><td>Amazon Polly</td><td>Kreditkarte</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td></tr></tbody></table>
+<h2 id="mein-use-case">Mein Use Case</h2>
+<p>Ich nutze Edge TTS, um Telegram-Sprachnachrichten zu generieren. Mein Hermes Agent liest eine Zusammenfassung, generiert die Audio-Datei und schickt sie als Sprachnachricht. Alles automatisch, alles kostenlos.</p>
+<h2 id="fazit">Fazit</h2>
+<p>Edge TTS ist der beste kostenlose TTS-Dienst, den es gibt. Punkt. Wer für einfache Sprachausgabe Geld ausgibt, hat Edge TTS nicht probiert.</p> </div> <div class="mt-12 pt-8 border-t border-gray-800"> <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">
 ← Zurück zum Blog
 </a> </div> </article>  </main> <footer class="border-t border-gray-800 mt-16"> <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-center text-gray-500 text-sm"> <p>© 2026 TechPulse – powered by ☕ & 🤖</p> </div> </footer> </body></html>

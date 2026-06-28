@@ -5,6 +5,38 @@ TechPulse
       prose-code:text-accent prose-code:bg-gray-800/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
       prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800
       prose-blockquote:border-primary prose-blockquote:text-gray-400
-      prose-img:rounded-xl"></div> <div class="mt-12 pt-8 border-t border-gray-800"> <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">
+      prose-img:rounded-xl"> <h2 id="warum-truenas">Warum TrueNAS?</h2>
+<p>Wer ein Smart Home aufbaut, steht früher oder später vor der Frage: Wo laufen die ganzen Dienste? Ein Raspberry Pi reicht oft nicht, und Cloud-Lösungen kosten nicht nur Geld, sondern geben auch die Kontrolle ab.</p>
+<p>Meine Antwort: <strong>TrueNAS</strong> auf einem dedicatierten Server. Die Kombination aus ZFS-Dateisystem, Docker-Support und einer soliden Weboberfläche macht es zum perfekten Backbone.</p>
+<h2 id="mein-setup">Mein Setup</h2>
+<p>Auf meinem TrueNAS-Server (192.168.178.191) laufen verschiedene Docker-Container:</p>
+<ul>
+<li><strong>Home Assistant</strong> — Zentrale Smart Home Steuerung</li>
+<li><strong>Jellyfin</strong> — Medienserver für Filme &#x26; Serien</li>
+<li><strong>Verschiedene Automatisierungs-Dienste</strong> — Cron-Jobs, Monitoring, Backups</li>
+</ul>
+<h2 id="docker-auf-truenas-die-vor--und-nachteile">Docker auf TrueNAS: Die Vor- und Nachteile</h2>
+<h3 id="-vorteile">✅ Vorteile</h3>
+<ul>
+<li><strong>ZFS</strong> bietet Datenintegrität und Snapshots</li>
+<li>Einfache Verwaltung der Container über die Weboberfläche</li>
+<li>Ressourcen-Limits pro Container</li>
+<li>Automatische Updates möglich</li>
+</ul>
+<h3 id="️-nachteile">⚠️ Nachteile</h3>
+<ul>
+<li>TrueNAS ist kein reiner Docker-Host — man muss sich an dessen Konventionen halten</li>
+<li>Hardware-Kompatibilität kann tricky sein</li>
+<li>Die Community-Auswahl an Apps ist überschaubar</li>
+</ul>
+<h2 id="tipps-für-den-einstieg">Tipps für den Einstieg</h2>
+<ol>
+<li><strong>Z-Pool anlegen</strong> bevor ihr Container startet — sonst landet alles auf dem Boot-Pool</li>
+<li><strong>Snapshot-Richtlinie</strong> einrichten — ZFS-Snapshots sind Gold wert</li>
+<li><strong>Ressourcen-Limits</strong> setzen — ein Container sollte nicht den ganzen RAM fressen</li>
+<li><strong>Backups!</strong> — Auch ZFS ersetzt kein Offsite-Backup</li>
+</ol>
+<h2 id="fazit">Fazit</h2>
+<p>TrueNAS als Docker-Server ist nichts für Anfänger, aber wenn man einmal alles laufen hat, ist es unglaublich zuverlässig. Die Kombination aus ZFS und Docker gibt mir die Kontrolle, die ich brauche — ohne monatliche Cloud-Kosten.</p> </div> <div class="mt-12 pt-8 border-t border-gray-800"> <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">
 ← Zurück zum Blog
 </a> </div> </article>  </main> <footer class="border-t border-gray-800 mt-16"> <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-center text-gray-500 text-sm"> <p>© 2026 TechPulse – powered by ☕ & 🤖</p> </div> </footer> </body></html>

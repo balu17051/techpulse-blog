@@ -5,6 +5,60 @@ TechPulse
       prose-code:text-accent prose-code:bg-gray-800/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
       prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800
       prose-blockquote:border-primary prose-blockquote:text-gray-400
-      prose-img:rounded-xl"></div> <div class="mt-12 pt-8 border-t border-gray-800"> <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">
+      prose-img:rounded-xl"> <h2 id="warum-github-pages">Warum GitHub Pages?</h2>
+<p>Wer eine Website hosten will, hat die Qual der Wahl. Die meisten Optionen kosten Geld — oft mehr als erwartet. GitHub Pages ist die Ausnahme:</p>
+<ul>
+<li>✅ <strong>Komplett kostenlos</strong> — Für öffentliche Repos</li>
+<li>✅ <strong>HTTPS inklusive</strong> — Automatisches SSL-Zertifikat</li>
+<li>✅ <strong>CI/CD eingebaut</strong> — GitHub Actions für automatische Deploys</li>
+<li>✅ <strong>Custom Domains</strong> — Eigene Domain möglich</li>
+<li>✅ <strong>Jederzeit kündbar</strong> — Keine Verträge, keine Abo-Fallen</li>
+</ul>
+<h2 id="einrichtung-in-5-minuten">Einrichtung in 5 Minuten</h2>
+<h3 id="1-repo-erstellen">1. Repo erstellen</h3>
+<p>Einfach ein öffentliches Repo auf GitHub anlegen.</p>
+<h3 id="2-seiten-code-pushen">2. Seiten-Code pushen</h3>
+<p>Egal ob Astro, Next.js, Hugo oder reines HTML — einfach pushen.</p>
+<h3 id="3-github-actions-workflow">3. GitHub Actions Workflow</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Deploy</span></span>
+<span class="line"><span style="color:#79B8FF">on</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  push</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    branches</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">main</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#85E89D">jobs</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  build</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    runs-on</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ubuntu-latest</span></span>
+<span class="line"><span style="color:#85E89D">    steps</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/checkout@v4</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/setup-node@v4</span></span>
+<span class="line"><span style="color:#85E89D">        with</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          node-version</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">run</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">npm ci</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">run</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">npm run build</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/upload-pages-artifact@v3</span></span>
+<span class="line"><span style="color:#85E89D">        with</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">dist</span></span>
+<span class="line"><span style="color:#85E89D">  deploy</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    needs</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">build</span></span>
+<span class="line"><span style="color:#85E89D">    runs-on</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ubuntu-latest</span></span>
+<span class="line"><span style="color:#85E89D">    permissions</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      pages</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">write</span></span>
+<span class="line"><span style="color:#85E89D">      id-token</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">write</span></span>
+<span class="line"><span style="color:#85E89D">    environment</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">github-pages</span></span>
+<span class="line"><span style="color:#85E89D">    steps</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/deploy-pages@v4</span></span></code></pre>
+<h3 id="4-pages-aktivieren">4. Pages aktivieren</h3>
+<p>In den Repo-Settings → Pages → Source: “GitHub Actions” auswählen.</p>
+<h3 id="5-fertig">5. Fertig!</h3>
+<p>Die Website ist verfügbar unter <code>username.github.io/repo-name</code>.</p>
+<h2 id="grenzen">Grenzen</h2>
+<ul>
+<li><strong>Nur statische Sites</strong> — Kein serverseitiges PHP, Python etc.</li>
+<li><strong>100 MB Limit</strong> — Pro Build-Artifact</li>
+<li><strong>1 GB gesamt</strong> — Repo-Größe</li>
+<li><strong>100.000 Requests/Tag</strong> — Für kleine Blogs mehr als genug</li>
+</ul>
+<h2 id="fazit">Fazit</h2>
+<p>GitHub Pages ist die no-brainer-Lösung für statische Websites. Kostenlos, schnell und zuverlässig. Jeder Cent, den man für einfaches Blog-Hosting ausgibt, ist zu viel.</p> </div> <div class="mt-12 pt-8 border-t border-gray-800"> <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">
 ← Zurück zum Blog
 </a> </div> </article>  </main> <footer class="border-t border-gray-800 mt-16"> <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-center text-gray-500 text-sm"> <p>© 2026 TechPulse – powered by ☕ & 🤖</p> </div> </footer> </body></html>

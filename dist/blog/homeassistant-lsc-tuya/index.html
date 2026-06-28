@@ -5,6 +5,283 @@ TechPulse
       prose-code:text-accent prose-code:bg-gray-800/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
       prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800
       prose-blockquote:border-primary prose-blockquote:text-gray-400
-      prose-img:rounded-xl"></div> <div class="mt-12 pt-8 border-t border-gray-800"> <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">
+      prose-img:rounded-xl"> <h2 id="warum-lsc--home-assistant">Warum LSC + Home Assistant?</h2>
+<p>LSC Smart Connect ist die Smart-Home-Eigenmarke von Action (Niederlande/Belgien). Die Geräte sind günstig — Steckdosen ab 8€, Lampen ab 12€, Sensoren ab 10€. Das Beste: Unter der Haube steckt Tuya, und das bedeutet: <strong>Sie lassen sich lokal in Home Assistant integrieren.</strong></p>
+<p>Keine Cloud-Abhängigkeit, keinbringen chinesisches Daten-Geflecht, keine App-Zwang — nur du und deine Geräte.</p>
+<h2 id="übersicht-der-lsc-geräte">Übersicht der LSC-Geräte</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Gerät</th><th>Tuya-Produkt</th><th>Lokal steuerbar</th></tr></thead><tbody><tr><td>LSC Smart-Steckdose (IP20)</td><td>Switch 1-Gang</td><td>✅ Ja</td></tr><tr><td>LSC Smart-LED E27 RGB</td><td>RGBW Bulb</td><td>✅ Ja</td></tr><tr><td>LSC Smart-LED E27 Weiß</td><td>Dimmable Bulb</td><td>✅ Ja</td></tr><tr><td>LSC Smart-Bewegungsmelder</td><td>PIR Sensor</td><td>✅ Ja</td></tr><tr><td>LSC Smart-Tür-/Fenstersensor</td><td>Door/Window Sensor</td><td>✅ Ja</td></tr><tr><td>LSC Smart-Camera</td><td>IP Camera</td><td>❌ Nur Cloud</td></tr><tr><td>LSC Smart-Steckdose (IP44)</td><td>Switch 1-Gang Outdoor</td><td>✅ Ja</td></tr></tbody></table>
+<h2 id="methode-1-tuya-v2-integration-empfohlen">Methode 1: Tuya v2 Integration (Empfohlen)</h2>
+<p>Die offizielle Tuya v2 Integration in Home Assistant nutzt die Tuya Cloud API zur Geräteerkennung, steuert die Geräte dann aber <strong>lokal</strong> über LAN.</p>
+<h3 id="schritt-1-tuya-iot-platform-registrieren">Schritt 1: Tuya IoT Platform registrieren</h3>
+<ol>
+<li>Gehe zu <a href="https://iot.tuya.com">iot.tuya.com</a> und erstelle einen Account</li>
+<li>Erstelle ein neues Projekt (“Cloud Development” → “Create Cloud Project”)</li>
+<li>Wähle als Data Center <strong>Central Europe</strong> (für LSC-Geräte in DE/NL/BE)</li>
+<li>Notiere dir <strong>Access ID</strong> und <strong>Access Secret</strong></li>
+</ol>
+<h3 id="schritt-2-geräte-verlinken">Schritt 2: Geräte verlinken</h3>
+<ol>
+<li>In der Tuya IoT Platform: Gehe zu “Device Management” → “Link Tuya App Account”</li>
+<li>Scanne den QR-Code mit der LSC Smart Connect App (oder Tuya Smart App)</li>
+<li>Deine LSC-Geräte erscheinen nun in der Platform</li>
+</ol>
+<h3 id="schritt-3-api-berechtigungen-aktivieren">Schritt 3: API-Berechtigungen aktivieren</h3>
+<ol>
+<li>Gehe zu “Project” → deiner Projekt → “API Group”</li>
+<li>Aktiviere folgende Gruppen:
+<ul>
+<li><strong>Device Control</strong> (zum Schalten)</li>
+<li><strong>Device Management</strong> (für Status)</li>
+<li><strong>User Management</strong> (für Auth)</li>
+</ul>
+</li>
+</ol>
+<h3 id="schritt-4-home-assistant-konfigurieren">Schritt 4: Home Assistant konfigurieren</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#6A737D"># configuration.yaml</span></span>
+<span class="line"><span style="color:#85E89D">tuya</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  username</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">DEINE_TUYA_EMAIL</span></span>
+<span class="line"><span style="color:#85E89D">  password</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">DEIN_TUYA_PASSWORT</span></span>
+<span class="line"><span style="color:#85E89D">  country_code</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"49"</span><span style="color:#6A737D">  # Deutschland</span></span>
+<span class="line"><span style="color:#85E89D">  platform</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"tuya"</span><span style="color:#6A737D">    # Für LSC: "tuya" oder "lsc"</span></span></code></pre>
+<p>Oder über die UI: <strong>Einstellungen → Geräte &#x26; Dienste → Integration hinzufügen → Tuya</strong></p>
+<h3 id="schritt-5-lokale-steuerung-aktivieren">Schritt 5: Lokale Steuerung aktivieren</h3>
+<p>Die Tuya v2 Integration erkennt automatisch, ob ein Gerät im lokalen Netzwerk erreichbar ist. Wenn ja, wird die Steuerung lokal durchgeführt.</p>
+<p>Prüfen: <strong>Einstellungen → Geräte &#x26; Dienste → Tuya → Gerät anklicken → “Lokale Verbindung: Ja”</strong></p>
+<h2 id="methode-2-localtuya-reine-lokal-steuerung">Methode 2: LocalTuya (Reine Lokal-Steuerung)</h2>
+<p>Wenn du <strong>komplett ohne Cloud</strong> arbeiten willst, ist LocalTuya die beste Wahl. Diese Integration kommuniziert direkt über das LAN mit den Tuya-Geräten.</p>
+<h3 id="schritt-1-localtuya-installieren">Schritt 1: LocalTuya installieren</h3>
+<p>Via HACS (Home Assistant Community Store):</p>
+<ol>
+<li>HACS → Integrationen → “Lokale Tuya” suchen</li>
+<li>Installieren</li>
+<li>Home Assistant neu starten</li>
+</ol>
+<h3 id="schritt-2-device-key-und-local-key-ermitteln">Schritt 2: Device Key und Local Key ermitteln</h3>
+<p>Dafür brauchst du das Tool <strong>tinytuya</strong>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">pip</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> tinytuya</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Schcan nach Geräten im Netzwerk</span></span>
+<span class="line"><span style="color:#B392F0">python</span><span style="color:#79B8FF"> -m</span><span style="color:#9ECBFF"> tinytuya</span><span style="color:#9ECBFF"> scan</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Output Beispiel:</span></span>
+<span class="line"><span style="color:#6A737D"># Device 1: [LSC Smart Plug] at 192.168.178.45, ID: bfsdb234..., Key: abc123...</span></span></code></pre>
+<p>Alternativ: Tuya Cloud API abfragen:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> tinytuya</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Mit Cloud-Credentials</span></span>
+<span class="line"><span style="color:#E1E4E8">c </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> tinytuya.Cloud(</span></span>
+<span class="line"><span style="color:#FFAB70">    apiRegion</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"eu"</span><span style="color:#E1E4E8">,    </span><span style="color:#6A737D"># Central Europe für LSC</span></span>
+<span class="line"><span style="color:#FFAB70">    apiKey</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"DEIN_ACCESS_ID"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">    apiSecret</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"DEIN_ACCESS_SECRET"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">    apiDeviceID</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"DEIN_DEVICE_ID"</span></span>
+<span class="line"><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Alle Geräte abrufen</span></span>
+<span class="line"><span style="color:#E1E4E8">devices </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> c.getdevices()</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> dev </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> devices:</span></span>
+<span class="line"><span style="color:#79B8FF">    print</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">f</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">{</span><span style="color:#E1E4E8">dev[</span><span style="color:#9ECBFF">'name'</span><span style="color:#E1E4E8">]</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">: ID=</span><span style="color:#79B8FF">{</span><span style="color:#E1E4E8">dev[</span><span style="color:#9ECBFF">'id'</span><span style="color:#E1E4E8">]</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">, Key=</span><span style="color:#79B8FF">{</span><span style="color:#E1E4E8">dev.get(</span><span style="color:#9ECBFF">'local_key'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'?'</span><span style="color:#E1E4E8">)</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<h3 id="schritt-3-localtuya-in-home-assistant-konfigurieren">Schritt 3: LocalTuya in Home Assistant konfigurieren</h3>
+<p>Über die UI: <strong>Einstellungen → Geräte &#x26; Dienste → Integration hinzufügen → LocalTuya</strong></p>
+<p>Für jedes Gerät brauchst du:</p>
+<ul>
+<li><strong>Device ID</strong>: Aus dem tinytuya-Scan</li>
+<li><strong>Local Key</strong>: Aus dem tinytuya-Scan oder der Cloud API</li>
+<li><strong>IP-Adresse</strong>: Aus dem Scan</li>
+<li><strong>Protocol Version</strong>: Meist <strong>3.3</strong> für LSC-Geräte</li>
+</ul>
+<h3 id="schritt-4-dps-mapping-data-points">Schritt 4: DPS-Mapping (Data Points)</h3>
+<p>Jedes Tuya-Gerät hat DPS-Werte (Data Points). Die wichtigsten:</p>
+<p><strong>LSC Smart-Steckdose:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>DPS</th><th>Typ</th><th>Beschreibung</th></tr></thead><tbody><tr><td>1</td><td>boolean</td><td>Ein/Aus</td></tr><tr><td>2</td><td>integer</td><td>Timer (Sekunden)</td></tr><tr><td>5</td><td>integer</td><td>Strom (0.01A)</td></tr><tr><td>6</td><td>integer</td><td>Spannung (0.1V)</td></tr><tr><td>7</td><td>integer</td><td>Leistung (0.1W)</td></tr></tbody></table>
+<p><strong>LSC Smart-LED RGBW:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>DPS</th><th>Typ</th><th>Beschreibung</th></tr></thead><tbody><tr><td>1</td><td>boolean</td><td>Ein/Aus</td></tr><tr><td>2</td><td>string</td><td>Modus (white/colour/scene/music)</td></tr><tr><td>3</td><td>integer</td><td>Helligkeit (10-1000)</td></tr><tr><td>5</td><td>string</td><td>Farbe (HSV: h,s,v)</td></tr><tr><td>6</td><td>integer</td><td>Farbtemperatur (0-1000)</td></tr></tbody></table>
+<p>Konfiguration in der LocalTuya-UI: Für jeden DPS einen Eintrag erstellen mit dem passenden HA-Platform-Typ (switch, light, sensor).</p>
+<h2 id="automatisierungen-praktische-beispiele">Automatisierungen: Praktische Beispiele</h2>
+<h3 id="bewegungsmelder--licht">Bewegungsmelder → Licht</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">automation</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">alias</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"LSC Bewegung → Licht an"</span></span>
+<span class="line"><span style="color:#85E89D">    trigger</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">platform</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">state</span></span>
+<span class="line"><span style="color:#85E89D">        entity_id</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">binary_sensor.lsc_bewegungsmelder</span></span>
+<span class="line"><span style="color:#85E89D">        to</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"on"</span></span>
+<span class="line"><span style="color:#85E89D">    action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">service</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">light.turn_on</span></span>
+<span class="line"><span style="color:#85E89D">        target</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          entity_id</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">light.lsc_led_wohnzimmer</span></span>
+<span class="line"><span style="color:#85E89D">        data</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          brightness_pct</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">80</span></span>
+<span class="line"><span style="color:#85E89D">          kelvin</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">4000</span></span>
+<span class="line"><span style="color:#85E89D">    mode</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">single</span></span></code></pre>
+<h3 id="steckdose-nach-stromverbrauch-schalten">Steckdose nach Stromverbrauch schalten</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">automation</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">alias</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Steckdose aus bei Standby"</span></span>
+<span class="line"><span style="color:#85E89D">    trigger</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">platform</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">numeric_state</span></span>
+<span class="line"><span style="color:#85E89D">        entity_id</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">sensor.lsc_steckdose_leistung</span></span>
+<span class="line"><span style="color:#85E89D">        below</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span></span>
+<span class="line"><span style="color:#85E89D">        for</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          minutes</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">10</span></span>
+<span class="line"><span style="color:#85E89D">    action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">service</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">switch.turn_off</span></span>
+<span class="line"><span style="color:#85E89D">        target</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          entity_id</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">switch.lsc_steckdose</span></span></code></pre>
+<h3 id="tageszeit-basierte-farbtemperatur">Tageszeit-basierte Farbtemperatur</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">automation</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">alias</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Warmes Licht am Abend"</span></span>
+<span class="line"><span style="color:#85E89D">    trigger</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">platform</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">time</span></span>
+<span class="line"><span style="color:#85E89D">        at</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"19:00:00"</span></span>
+<span class="line"><span style="color:#85E89D">    action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">service</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">light.turn_on</span></span>
+<span class="line"><span style="color:#85E89D">        target</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          entity_id</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">light.lsc_led_schlafzimmer</span></span>
+<span class="line"><span style="color:#85E89D">        data</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          kelvin</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2700</span></span>
+<span class="line"><span style="color:#85E89D">          brightness_pct</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">50</span></span>
+<span class="line"><span style="color:#85E89D">          transition</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">300</span><span style="color:#6A737D">  # 5 Minuten sanfter Übergang</span></span></code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="gerät-wird-nicht-erkannt">Gerät wird nicht erkannt</h3>
+<ol>
+<li><strong>Stellen Sie sicher, dass das Gerät im selben WLAN-Netz</strong> ist wie Home Assistant</li>
+<li><strong>2.4 GHz Netzwerk</strong> verwenden — LSC-Geräte unterstützen kein 5 GHz</li>
+<li>Gerät einmal vom Strom trennen und neu verbinden</li>
+<li>In der LSC-App prüfen, ob das Gerät noch verbunden ist</li>
+</ol>
+<h3 id="localkey-ist-falsch">LocalKey ist falsch</h3>
+<p>Der Local Key ändert sich, wenn ein Gerät <strong>neu gepairt</strong> wird. Nach jedem Neu-Pairing den Key neu ermitteln.</p>
+<h3 id="gerät-geht-offline">Gerät geht offline</h3>
+<ul>
+<li>Tuya-Geräte wechseln manchmal die IP. <strong>Statische IP im Router vergeben</strong> (DHCP-Reservierung)</li>
+<li>Manche LSC-Geräte aktualisieren ihre Firmware automatisch über die Cloud. Nach einem Update kann sich der DPS-Mapping ändern.</li>
+</ul>
+<h3 id="dps-werte-finden">DPS-Werte finden</h3>
+<p>Wenn du nicht weißt, welche DPS dein Gerät hat:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">tinytuya</span><span style="color:#9ECBFF"> wizard</span></span>
+<span class="line"><span style="color:#6A737D"># Folgt dem interaktiven Wizard, der alle DPS ausliest</span></span></code></pre>
+<p>Oder in Home Assistant: <strong>Entwicklerwerkzeuge → Zustände → Gerät suchen</strong> — dort werden alle Attribute angezeigt.</p>
+<h2 id="sicherheitshinweise">Sicherheitshinweise</h2>
+<ul>
+<li><strong>Lokale Steuerung</strong> bedeutet: Keine Daten gehen an Tuya-Server (bei LocalTuya)</li>
+<li>Die Tuya v2 Integration nutzt die Cloud nur zur Authentifizierung, danach lokal</li>
+<li><strong>Blockiere Tuya-Server in deinem DNS-Filter</strong> (z.B. Pi-hole), wenn du LocalTuya nutzt</li>
+<li>Firmware-Updates funktionieren dann nicht mehr — abwägen zwischen Privacy und Security</li>
+</ul>
+<h2 id="fazit">Fazit</h2>
+<p>LSC Smart Connect Geräte sind ein Geheimtipp für Home-Assistant-Nutzer. Günstig, Tuya-kompatibel und mit LocalTuya komplett lokal steuerbar. Die Kombination aus LSC-Hardware und Home Assistant Automatisierung schlägt jedes kommerzielle Smart-Home-System — und du behältst die Kontrolle über deine Daten.</p> </div> <div class="mt-12 pt-8 border-t border-gray-800"> <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">
 ← Zurück zum Blog
 </a> </div> </article>  </main> <footer class="border-t border-gray-800 mt-16"> <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-center text-gray-500 text-sm"> <p>© 2026 TechPulse – powered by ☕ & 🤖</p> </div> </footer> </body></html>
