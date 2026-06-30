@@ -20,6 +20,78 @@ const allPosts = import.meta.glob('../../blog/*.md', { eager: true });
 const postKey = Object.keys(allPosts).find(k => k.includes(post.slug));
 const postModule = postKey ? allPosts[postKey] : null;
 const Content = postModule?.default || null;
+
+// Affiliate-CTA based on tags/context
+const affiliateCTA = getAffiliateCTA(post.tags || [], post.slug);
+
+function getAffiliateCTA(tags: string[], slug: string) {
+  const tagStr = tags.join(' ').toLowerCase();
+  
+  if (tagStr.includes('vpn') || slug.includes('vpn')) {
+    
+    return {
+      title: '🔐 Schütz dein Internet mit einem VPN',
+      description: 'Einer der schnellsten & günstigsten VPNs — getestet und empfohlen.',
+      buttonText: '→ Surfshark sichern (bis 82% Rabatt)',
+      url: 'https://surfshark.de/go/techpulse',
+      badge: 'Deal',
+    };
+  }
+  if (tagStr.includes('honeygain') || slug.includes('honeygain') || tagStr.includes('passives einkommen')) {
+    return {
+      title: '🍯 Passiv Geld verdienen während du schläfst',
+      description: 'Honeygain zahlt dich für ungenutzte Internetbandbreite — komplett passiv.',
+      buttonText: '→ Kostenlos starten + $5 Bonus',
+      url: 'https://r.honeygain.me/STEHM0F453',
+      badge: 'Empfehlung',
+    };
+  }
+  if (tagStr.includes('domain') || slug.includes('domain')) {
+    return {
+      title: '🌐 Günstige Domains sichern',
+      description: 'Namecheap — .com ab $5.88/Jahr inkl. Whois Privacy kostenlos.',
+      buttonText: '→ Domains checken',
+      url: 'https://namecheap.pxf.io/techpulse',
+      badge: 'Deal',
+    };
+  }
+  if (tagStr.includes('hetzner') || slug.includes('hetzner') || tagStr.includes('server') || tagStr.includes('homelab') || tagStr.includes('vps')) {
+    return {
+      title: '🖥️ Eigenen Server aufbauen?',
+      description: 'Hetzner — Deutscher Hoster, DSGVO-konform, €20 Startguthaben für Neukunden.',
+      buttonText: '→ €20 Guthaben sichern',
+      url: 'https://www.hetzner.com?ref=TECHPULSE',
+      badge: '€20 Bonus',
+    };
+  }
+  if (tagStr.includes('contabo') || slug.includes('contabo')) {
+    return {
+      title: '💰 Günstiger VPS mit Traffic-Flat',
+      description: 'Contabo — leistungsstarke Server ab €4.99/Monat mit 32 TB Traffic.',
+      buttonText: '→ Contabo Angebote ansehen',
+      url: 'https://contabo.com/en/vps/?affiliate=techpulse',
+      badge: 'Günstig',
+    };
+  }
+  if (slug.includes('earnapp')) {
+    return {
+      title: '💸 Bandbreite teilen, Geld verdienen',
+      description: 'EarnApp — wie Honeygain, direkt in dein PayPal-Konto. Komplett passiv.',
+      buttonText: '→ EarnApp kostenlos starten',
+      url: 'https://earnapp.com/i/l9KWY9dJ',
+      badge: 'Referral',
+    };
+  }
+  
+  // Default: Amazon Store
+  return {
+    title: '🛒 Meine Amazon Empfehlungen',
+    description: 'Handverlesene Tech-Produkte — mit deinem Kauf unterstützt du TechPulse kostenlos.',
+    buttonText: '→ Amazon Storefront besuchen',
+    url: 'https://amzn.to/4eRHaXc',
+    badge: 'Empfehlung',
+  };
+}
 ---
 
 <BaseLayout title={post.title}>
@@ -47,25 +119,31 @@ const Content = postModule?.default || null;
       {Content && <Content />}
     </div>
 
-    <div class="mt-12 pt-8 border-t border-gray-800">
-      <a href={`${import.meta.env.BASE_URL}blog/`} class="text-primary hover:text-accent transition-colors font-medium">
-        ← Zurück zum Blog
+    <!-- Prominent Affiliate CTA Box -->
+    <div class="mt-12 rounded-2xl border-2 border-primary/50 bg-gradient-to-br from-primary/10 via-gray-900 to-accent/10 p-6 sm:p-8 relative overflow-hidden">
+      <div class="absolute top-3 right-3 px-3 py-1 text-xs font-bold rounded-full bg-primary text-white animate-pulse">
+        {affiliateCTA.badge}
+      </div>
+      <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">{affiliateCTA.title}</h3>
+      <p class="text-gray-400 mb-5">{affiliateCTA.description}</p>
+      <a
+        href={affiliateCTA.url}
+        target="_blank"
+        rel="noopener sponsored"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary/80 text-white font-bold text-base transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/25"
+      >
+        {affiliateCTA.buttonText}
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+        </svg>
       </a>
+      <p class="text-gray-600 text-xs mt-3">Partner-Link · Keine zusätzlichen Kosten für dich</p>
     </div>
 
-    <div class="mt-8 p-6 rounded-xl bg-gray-900/70 border border-gray-800">
-      <h3 class="text-lg font-bold text-white mb-2">🛒 Mein Amazon Storefront</h3>
-      <p class="text-gray-400 text-sm mb-3">
-        Meine handverlesenen Empfehlungen — mit Partner-Link. 
-        Wenn du darüber kaufst, unterstützt du TechPulse kostenlos.
-      </p>
-      <a 
-        href="https://amzn.to/4eRHaXc" 
-        target="_blank" 
-        rel="noopener sponsored"
-        class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/20 text-primary hover:bg-primary/30 transition-colors font-medium text-sm"
-      >
-        Auf Amazon schauen →
+    <!-- Back link -->
+    <div class="mt-8 pt-6 border-t border-gray-800">
+      <a href={`${import.meta.env.BASE_URL}blog/`} class="text-primary hover:text-accent transition-colors font-medium">
+        ← Zurück zum Blog
       </a>
     </div>
   </article>
