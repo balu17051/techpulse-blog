@@ -1,0 +1,195 @@
+<!DOCTYPE html><html lang="de" class="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="TechPulse – Tech, Krypto, Automatisierung &#38; DIY Blog"><meta name="keywords" content="Tech, Krypto, Automatisierung, DIY, Docker, Linux, Self-Hosted, Smart Home, Server, Tutorial"><meta name="author" content="Andreas Stehmann"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"><meta name="generator" content="Astro v5.18.2"><meta name="google-site-verification" content="googlea756a35158db6d58"><link rel="canonical" href="https://balu17051.github.io/techpulse-blog/blog/contabo-vps-test/"><link rel="icon" type="image/svg+xml" href="/techpulse-blog/favicon.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><title>Contabo VPS: Viel Server fürs Geld — Lohnt sich der Hype? | TechPulse</title><meta property="og:type" content="website"><meta property="og:title" content="Contabo VPS: Viel Server fürs Geld — Lohnt sich der Hype? | TechPulse"><meta property="og:description" content="TechPulse – Tech, Krypto, Automatisierung &#38; DIY Blog"><meta property="og:url" content="https://balu17051.github.io/techpulse-blog/blog/contabo-vps-test/"><meta property="og:site_name" content="TechPulse"><meta property="og:image" content="https://balu17051.github.io/techpulse-blog/og-image.png"><meta property="og:image:alt" content="Contabo VPS: Viel Server fürs Geld — Lohnt sich der Hype? | TechPulse"><meta property="og:locale" content="de_DE"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Contabo VPS: Viel Server fürs Geld — Lohnt sich der Hype? | TechPulse"><meta name="twitter:description" content="TechPulse – Tech, Krypto, Automatisierung &#38; DIY Blog"><meta name="twitter:image" content="https://balu17051.github.io/techpulse-blog/og-image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","headline":"Contabo VPS: Viel Server fürs Geld — Lohnt sich der Hype? | TechPulse","description":"TechPulse – Tech, Krypto, Automatisierung & DIY Blog","url":"https://balu17051.github.io/techpulse-blog/blog/contabo-vps-test/","author":{"@type":"Person","name":"Andreas Stehmann"},"publisher":{"@type":"Organization","name":"TechPulse","logo":{"@type":"ImageObject","url":"https://balu17051.github.io/techpulse-blog/og-image.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://balu17051.github.io/techpulse-blog/blog/contabo-vps-test/"}}</script><link rel="stylesheet" href="/techpulse-blog/_astro/about.D6hP7ZrY.css"></head> <body class="bg-gray-950 text-gray-100 min-h-screen font-sans antialiased"> <nav class="border-b border-gray-800 bg-gray-950/80 backdrop-blur-lg sticky top-0 z-50"> <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between"> <a href="/techpulse-blog/" class="flex items-center gap-2 group"> <span class="text-2xl">⚡</span> <span class="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent group-hover:from-accent group-hover:to-primary transition-all duration-300">
+TechPulse
+</span> </a> <div class="flex items-center gap-6 text-sm font-medium"> <a href="/techpulse-blog/" class="text-gray-400 hover:text-white transition-colors">Home</a> <a href="/techpulse-blog/blog/" class="text-gray-400 hover:text-white transition-colors">Blog</a> <a href="/techpulse-blog/angebote/" class="text-gray-400 hover:text-white transition-colors">Angebote</a> <a href="/techpulse-blog/about/" class="text-gray-400 hover:text-white transition-colors">Über mich</a> </div> </div> </nav> <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8">  <article class="max-w-3xl mx-auto"> <header class="mb-10"> <div class="flex flex-wrap gap-2 mb-4"> <span class="px-3 py-1 text-xs font-medium rounded-full bg-primary/20 text-primary border border-primary/30"> Contabo </span><span class="px-3 py-1 text-xs font-medium rounded-full bg-primary/20 text-primary border border-primary/30"> VPS </span><span class="px-3 py-1 text-xs font-medium rounded-full bg-primary/20 text-primary border border-primary/30"> Homelab </span><span class="px-3 py-1 text-xs font-medium rounded-full bg-primary/20 text-primary border border-primary/30"> Server </span><span class="px-3 py-1 text-xs font-medium rounded-full bg-primary/20 text-primary border border-primary/30"> Hetzner Alternative </span> </div> <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-3 leading-tight">Contabo VPS: Viel Server fürs Geld — Lohnt sich der Hype?</h1> <time datetime="2026-07-05" class="text-gray-500 text-sm"> 5. Juli 2026 </time> </header> <div class="prose prose-invert prose-lg max-w-none
+      prose-headings:text-white prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+      prose-code:text-accent prose-code:bg-gray-800/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+      prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800
+      prose-blockquote:border-primary prose-blockquote:text-gray-400
+      prose-img:rounded-xl"> <h2 id="der-versuch-viel-hardware-für-wenig-geld">Der Versuch: Viel Hardware für wenig Geld</h2>
+<p>8 vCPU-Kerne, 32 GB RAM, 400 GB SSD — für <strong>€8,99/Monat</strong>. Klingt zu gut um wahr zu sein? Contabo verspricht genau das. Für Homelabber, Docker-Fans und alle die mehr Power brauchen als eine kleine Cloud-Instanz bietet Contabo oft die perfekte Ergänzung zum Hetzner-Setup.</p>
+<p>Was steckt dahinter — und gibt es versteckte Haken?</p>
+<h2 id="wer-steckt-hinter-contabo">Wer steckt hinter Contabo?</h2>
+<p><strong>Contabo GmbH</strong> ist ein deutsches Unternehmen mit Sitz in München. Gegründet 2008 (vielleicht als Spin-off der Universität München), hat sich Contabo auf günstiges Cloud-Hosting und Dedicated Server spezialisiert.</p>
+<p>Heute verwaltet das Unternehmen:</p>
+<ul>
+<li>Rechenzentren in <strong>München, Nürnberg, US (New York, Seattle) und Singapur</strong></li>
+<li>Über 1 Million Kunden</li>
+<li>Bekannt für aggressiv niedrige Preise — manchmal die Hälfte der Konkurrenz</li>
+</ul>
+<h2 id="die-aktuellen-vps-pläne-2026">Die aktuellen VPS-Pläne (2026)</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Plan</th><th>vCPU</th><th>RAM</th><th>SSD</th><th>Preis/Monat</th><th>Traffic</th></tr></thead><tbody><tr><td>VPS S</td><td>4</td><td>8 GB</td><td>200 GB</td><td>€5,99</td><td>32 TB</td></tr><tr><td>VPS M</td><td>6</td><td>16 GB</td><td>200 GB</td><td>€8,99</td><td>32 TB</td></tr><tr><td>VPS L</td><td>8</td><td>32 GB</td><td>400 GB</td><td>€13,99</td><td>32 TB</td></tr><tr><td>VPS XL</td><td>12</td><td>64 GB</td><td>1,6 TB</td><td>€26,99</td><td>32 TB</td></tr></tbody></table>
+<p>Der <strong>VPS L-Grundpreis (€13,99)</strong> ist positiv überraschend. Das sind <strong>0,44€/GB RAM</strong> — kein anderer Anbieter kommt auch nur ansatzweise heran. Traffic ist generö gestaltet mit 32 TB inklusive.</p>
+<h2 id="hetzner-vs-contabo--wo-liegen-die-unterschiede">Hetzner vs Contabo — Wo liegen die Unterschiede?</h2>
+<h3 id="preise-gleiche-specs">Preise (gleiche Specs)</h3>
+<p>Die Hetzner-Entsprechung zur Contabo VPS L wäre eine <strong>CCX23</strong> (8 vCPU, 32 GB RAM):</p>
+<ul>
+<li><strong>CCX23</strong>: €32,28/Monat mit <strong>nur 20 TB</strong> Traffic</li>
+<li><strong>Contabo VPS L</strong>: €13,99/Monat mit <strong>32 TB</strong> Traffic</li>
+</ul>
+<p>Fast eine 50% für ein Vielfaches an Traffic. Aber warum ist Hetzner dann nicht pleite?</p>
+<h3 id="performance-und-zuverlässig">Performance und Zuverlässig</h3>
+<p>Hier liegt der Unterschied:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Kriterium</th><th>Hetzner</th><th>Contabo</th></tr></thead><tbody><tr><td>CPU</td><td>AMD EPYC dediziert (wirklich!)</td><td>AMD EPYC shared</td></tr><tr><td>SSD</td><td>NVMe (sehr schnell)</td><td>SATA/NVMe (variiert)</td></tr><tr><td>Netzwerk</td><td>Garantierte Bandbreite</td><td>Shared, kann schwanken</td></tr><tr><td>Uptime</td><td>99.99%+</td><td>99.9% (gering, aber sichtbar)</td></tr><tr><td>Support</td><td>E-Mail, erreichbar</td><td>E-Mail + Telefon (lange Warte)</td></tr></tbody></table>
+<p><strong>Erfahrungsgemäß</strong> laufen CPU-intensive Workloads bei Hetzner 2-3x schneller. Bei Container-Workloads (Nextcoud, Home Assistant) ist das nicht direkt spürbar, aber bei Transkodierung, Kompilierung oder Machine Learning zeigt es sich.</p>
+<h3 id="support">Support</h3>
+<p><strong>Hetzner:</strong> Reagiert per E-Mail innerhalb von 24-48 Stunden. Englisch und Deutsch. Technisch kompetent.</p>
+<p><strong>Contabo:</strong> Support ist internationalisiert und hat oft Englisch als Primärsprache langsame Reaktionszeiten berichtet. Komplexe Fragen werden oft an “das Team” weitergeleitet. Aber für reine “Server down”-Fälle reicht es.</p>
+<h2 id="für-wen-lohnt-sich-contabo">Für wen lohnt sich Contabo?</h2>
+<h3 id="ja--wenn-du-willst">Ja — wenn du willst:</h3>
+<p>✅ <strong>Maximale RAM-Menge für wenig Geld</strong> — für €5,99/Monat bekommst du 8 GB. Reichte für Nextcloud, WordPress-Server oder kleines Home Lab.</p>
+<p>✅ <strong>Traffic-intensiv arbeitest</strong> — 32 TB sind extrem viel. Bei Hetzner (20 TB extra im günstigeren Plan) zahlt man nach.</p>
+<p>✅ <strong>Einen Billiganbieter für Dev/Testing</strong> — Pull-Umschlag Dev-Machine für fünf EUR? Reicht.</p>
+<h3 id="nein--wenn-du-brauchst">Nein — wenn du brauchst:</h3>
+<p>✅ <strong>GPU-Power</strong> — Kein GPU-Instanz bei Contabo. Hier brauchst du Hetzner oder Lambda Labs.</p>
+<p>✅ <strong>Schnelle CPU-Leistung</strong> — Dedizierte Kerne bei Hetzner sind den Shared-Kernen überlegen.</p>
+<p>✅ <strong>Deutschen Support 24/7</strong> — Hetzner ist hier deutlich besser.</p>
+<p>✅ <strong>Enterprise-Features</strong> — Load Balancer, Managed DB, Kubernetes sind nicht einfach bei Contabo.</p>
+<h2 id="mein-setup-contabo-als-zweit-server-nutzen">Mein Setup: Contabo als Zweit-Server nutzen</h2>
+<p>Viele Homelabber kombinieren: <strong>Hetzner für produktive Dienste</strong> (VPN, Mail, wichtige Daten), <strong>Contabo für Dev/Test und Backup</strong>. So verteilt man Risiko und Kosten.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># SSH-Keys gleich auf beiden</span></span>
+<span class="line"><span style="color:#B392F0">ssh-copy-id</span><span style="color:#9ECBFF"> root@HETZNER-IP</span></span>
+<span class="line"><span style="color:#B392F0">ssh-copy-id</span><span style="color:#9ECBFF"> root@CONTABO-IP</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Docker auf beiden installieren</span></span>
+<span class="line"><span style="color:#B392F0">ssh</span><span style="color:#9ECBFF"> root@CONTABO-IP</span><span style="color:#9ECBFF"> 'curl -fsSL https://get.docker.com | sh'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Erster Container testen</span></span>
+<span class="line"><span style="color:#B392F0">docker</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> hello-world</span></span></code></pre>
+<h2 id="ehrliche-kritik-wo-contabo-nachlässt">Ehrliche Kritik: Wo Contabo nachlässt</h2>
+<ol>
+<li>
+<p><strong>Preisverdoppelung nach dem ersten Jahr</strong> — oft vorher in AGB erwähnt, lesen die aber wenige. Prüfe den Listenpreis in der Tabelle oben — nicht den Promo-Preis.</p>
+</li>
+<li>
+<p><strong>Eingeschränkte Anti-DDoS-Abwehr</strong> — im Gegensatz zu Hetzner haben keine DDoS-Schutz-Einrichtungen Kontroll-Möglichkeiten. Bei einem großen Angriff kann dein Dienst einfach weg sein.</p>
+</li>
+<li>
+<p><strong>Volumes nicht dynamisch vergrößerbar</strong> — wenn du mehr Storage brauchst, musst du umziehen (neuer VPS oder manuell).</p>
+</li>
+</ol>
+<h2 id="fazit-wer-braucht-was">Fazit: Wer braucht was?</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Szenario</th><th>Empfehlung</th></tr></thead><tbody><tr><td>Einsteiger-Homelab</td><td><strong>Contabo VPS M</strong> (€8,99, 6c/16 GB)</td></tr><tr><td>Produktiv-Server mit viel Last</td><td><strong>Hetzner CPX/CCX</strong></td></tr><tr><td>Maximales RAM für wenig Geld</td><td><strong>Contabo VPS L</strong></td></tr><tr><td>Zuverlässiger E-Mail-Server</td><td><strong>Hetzner CPX21</strong></td></tr><tr><td>Dev-/Test-Umgebung</td><td><strong>Contabo VPS S</strong></td></tr><tr><td>Backup-Server / Cronjob-Machine</td><td><strong>Contabo VPS M</strong> oder Hetzner CPX11</td></tr></tbody></table>
+<p>Für das reine Homelabbing ist Contabo eine hervorragende Wahl — solange du die Einschränkung im Kopf behältst (shared CPU, geringere Performance). Kombiniert mit einem Hetzner-Fast-Produktionsserver bekommst du ein hervorragendes Setup.</p>
+<p><strong>Loslegen:</strong> → <a href="https://contabo.com?affiliate=TECHPULSE">contabo.com</a></p>
+<hr>
+<p><em>Läufst du bei Hetzner, Contabo oder woanders? Wie sind deine Erfahrungen? Teile es mir in den Kommentaren!</em></p> </div> <div class="mt-12 pt-8 border-t border-gray-800"> <a href="/techpulse-blog/blog/" class="text-primary hover:text-accent transition-colors font-medium">
+← Zurück zum Blog
+</a> </div> <div class="mt-8 p-6 rounded-xl bg-gray-900/70 border border-gray-800"> <h3 class="text-lg font-bold text-white mb-2">🛒 Mein Amazon Storefront</h3> <p class="text-gray-400 text-sm mb-3">
+Meine handverlesenen Empfehlungen — mit Partner-Link. 
+        Wenn du darüber kaufst, unterstützt du TechPulse kostenlos.
+</p> <a href="https://amzn.to/4eRHaXc" target="_blank" rel="noopener sponsored" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/20 text-primary hover:bg-primary/30 transition-colors font-medium text-sm">
+Auf Amazon schauen →
+</a> </div> </article>  </main> <footer class="border-t border-gray-800 mt-16"> <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-center text-gray-500 text-sm"> <p>© 2026 TechPulse – powered by ☕ & 🤖</p> </div> </footer> </body></html>

@@ -24,13 +24,13 @@ const restPosts = sortedPosts.slice(1);
       Tech, Krypto, Automatisierung & DIY — Ein Blog von Andreas über das, was die digitale Welt bewegt.
     </p>
     <div class="flex justify-center gap-4 text-sm">
-      <a href="/blog" class="px-6 py-3 rounded-lg bg-primary hover:bg-primary/80 text-white font-semibold transition-colors">
+      <a href={`${import.meta.env.BASE_URL}blog/`} class="px-6 py-3 rounded-lg bg-primary hover:bg-primary/80 text-white font-semibold transition-colors">
         Alle Artikel →
       </a>
-      <a href="/angebote" class="px-6 py-3 rounded-lg bg-accent/20 hover:bg-accent/30 text-accent border border-accent/40 font-semibold transition-colors">
+      <a href={`${import.meta.env.BASE_URL}angebote/`} class="px-6 py-3 rounded-lg bg-accent/20 hover:bg-accent/30 text-accent border border-accent/40 font-semibold transition-colors">
         🛒 Angebote
       </a>
-      <a href="/about" class="px-6 py-3 rounded-lg border border-gray-700 hover:border-gray-500 text-gray-300 font-semibold transition-colors">
+      <a href={`${import.meta.env.BASE_URL}about/`} class="px-6 py-3 rounded-lg border border-gray-700 hover:border-gray-500 text-gray-300 font-semibold transition-colors">
         Über mich
       </a>
     </div>
@@ -40,7 +40,7 @@ const restPosts = sortedPosts.slice(1);
   {latestPost && (
     <section class="mb-14">
       <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6">Neuester Artikel</h2>
-      <a href={`/blog/${latestPost.slug}`} class="block group">
+      <a href={`${import.meta.env.BASE_URL}blog/${latestPost.slug}/`} class="block group">
         <div class="rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900 to-gray-900/50 p-6 sm:p-8 hover:border-primary/40 transition-all duration-300">
           <div class="flex flex-wrap gap-2 mb-4">
             {(latestPost.tags || []).map((tag) => (
@@ -65,7 +65,7 @@ const restPosts = sortedPosts.slice(1);
       <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6">Weitere Artikel</h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {restPosts.map((post) => (
-          <a href={`/blog/${post.slug}`} class="block group">
+          <a href={`${import.meta.env.BASE_URL}blog/${post.slug}/`} class="block group">
             <div class="rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden hover:border-primary/50 hover:bg-gray-900 transition-all duration-300">
               {post.emoji && (
                 <div class="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-4xl">
