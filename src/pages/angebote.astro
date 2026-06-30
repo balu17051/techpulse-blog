@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const affiliateLinks = [
+  {
+    category: '🛒 Amazon Empfehlungen',
+    items: [
+      { name: 'Amazon Storefront', description: 'Meine komplette Empfehlungsliste auf Amazon', url: 'https://amzn.to/4eRHaXc' },
+    ]
+  },
+  {
+    category: '🖥️ Hardware & Server',
+    items: [
+      { name: 'Synology NAS', description: 'Für dein Smart Home & Self-Hosting', url: 'AMAZON_LINK_HIER' },
+      { name: 'Raspberry Pi 5', description: 'Einplatinen-Computer für DIY-Projekte', url: 'AMAZON_LINK_HIER' },
+    ]
+  },
+  {
+    category: '🔐 Sicherheit & Tools',
+    items: [
+      { name: 'YubiKey 5', description: 'Hardware-2FA für maximale Sicherheit', url: 'AMAZON_LINK_HIER' },
+      { name: 'Samsung T7 SSD', description: 'Schnelle externe Speicherung', url: 'AMAZON_LINK_HIER' },
+    ]
+  },
+];
+---
+
+<BaseLayout title="Angebote & Empfehlungen">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">Angebote & Empfehlungen</h1>
+    <p class="text-gray-400 mb-2">Meine persönlichen Empfehlungen — handverlesen und getestet.</p>
+
+    <div class="p-4 mb-8 rounded-lg bg-primary/10 border border-primary/20">
+      <p class="text-sm text-gray-300 m-0">
+        <strong class="text-primary">Hinweis:</strong> Diese Links sind Partner-Links (Affiliate). 
+        Wenn du darüber kaufst, erhalten wir eine kleine Provision — für dich entstehen keine zusätzlichen Kosten. 
+        So unterstützt du TechPulse kostenlos. 🙏
+      </p>
+    </div>
+
+    {affiliateLinks.map((section) => (
+      <section class="mb-10">
+        <h2 class="text-xl font-bold text-white mb-4">{section.category}</h2>
+        <div class="grid gap-4">
+          {section.items.map((item) => (
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener sponsored"
+              class="block p-5 rounded-xl border border-gray-800 bg-gray-900/50 hover:border-primary/50 hover:bg-gray-900 transition-all duration-300 group"
+            >
+              <div class="flex items-center justify-between gap-4">
+                <div>
+                  <h3 class="text-lg font-semibold text-white group-hover:text-primary transition-colors">
+                    {item.name}
+                  </h3>
+                  <p class="text-gray-500 text-sm mt-1">{item.description}</p>
+                </div>
+                <span class="text-primary text-sm font-medium whitespace-nowrap opacity-70 group-hover:opacity-100 transition-opacity">
+                  Auf Amazon →
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+
+    <div class="mt-12 pt-8 border-t border-gray-800">
+      <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">
+        ← Zurück zum Blog
+      </a>
+    </div>
+  </div>
+</BaseLayout>
