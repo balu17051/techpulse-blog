@@ -27,6 +27,15 @@ const affiliateCTA = getAffiliateCTA(post.tags || [], post.slug);
 function getAffiliateCTA(tags: string[], slug: string) {
   const tagStr = tags.join(' ').toLowerCase();
   
+  if (tagStr.includes('amazon deals') || tagStr.includes('telegram') || tagStr.includes('schnäppchen') || tagStr.includes('shopping') || slug.includes('schnappdeal')) {
+    return {
+      title: '🛒 Täglich die besten Amazon-Deals',
+      description: 'Unser Kanal @schnappdeal filtert das Rauschen — nur handverlesene Blitzangebote ab 4,5 Sternen, direkt aufs Handy.',
+      buttonText: '→ Jetzt @schnappdeal beitreten',
+      url: 'https://t.me/schnappdeal',
+      badge: 'Kanal',
+    };
+  }
   if (tagStr.includes('raspberry pi') || tagStr.includes('mini pc') || tagStr.includes('hardware') || tagStr.includes('ssd')) {
     return {
       title: '🛒 Hardware für dein Self-Hosting',

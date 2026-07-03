@@ -94,4 +94,12 @@ Die Links im Kanal sind **Amazon-Partnerlinks** (Affiliate). Wenn du darüber ka
 
 ---
 
+## Direkt in deinen Feed
+
+Nicht warten, bis der Deal vorbei ist. Der Kanal ist **kostenlos**, **ohne Spam** und **jederzeit kündbar**.
+
+👉 **[Jetzt @schnappdeal beitreten](https://t.me/schnappdeal)**
+
+---
+
 *Fragen? Vorschläge? Einfach im Kanal auf einen Deal antworten oder uns per DM kontaktieren.*
