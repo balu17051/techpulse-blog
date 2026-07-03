@@ -27,6 +27,15 @@ const affiliateCTA = getAffiliateCTA(post.tags || [], post.slug);
 function getAffiliateCTA(tags: string[], slug: string) {
   const tagStr = tags.join(' ').toLowerCase();
   
+  if (tagStr.includes('amazon associates') || slug.includes('amazon-associates')) {
+    return {
+      title: '🛒 Amazon Associates — Passiv mit Empfehlungen',
+      description: 'So verdienst du mit Produktempfehlungen auf Amazon passiv Geld — ohne eigenes Produkt.',
+      buttonText: '→ Amazon Storefront besuchen',
+      url: 'https://amzn.to/4eRHaXc',
+      badge: 'Amazon',
+    };
+  }
   if (tagStr.includes('amazon deals') || tagStr.includes('telegram') || tagStr.includes('schnäppchen') || tagStr.includes('shopping') || slug.includes('schnappdeal')) {
     return {
       title: '🛒 Täglich die besten Amazon-Deals',
