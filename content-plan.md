@@ -35,3 +35,5 @@
 28. Day 28 (28.07): Automatische Docker-Updates mit Watchtower - Ein guide
 29. Day 29 (29.07): Drei Jahre Homelab UX - Was ich bereue + was ich heute anders machen würde
 30. Day 30 (30.07): Abschluss: Alle wichtigen Affiliate-Programme im Tech-Bereich 2026
+31. ✅ Day 31 (03.07): Hermes Agent lokal betreiben – Dein eigener KI-Assistent (Bonus)
+32. ✅ Day 32 (03.07): Lokale KI-Agenten ohne Cloud-Abo – Hermes Agent als Smart-Home & Dev-Helfer (Bonus)
