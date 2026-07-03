@@ -27,8 +27,34 @@ const affiliateCTA = getAffiliateCTA(post.tags || [], post.slug);
 function getAffiliateCTA(tags: string[], slug: string) {
   const tagStr = tags.join(' ').toLowerCase();
   
+  if (tagStr.includes('raspberry pi') || tagStr.includes('mini pc') || tagStr.includes('hardware') || tagStr.includes('ssd')) {
+    return {
+      title: '🛒 Hardware für dein Self-Hosting',
+      description: 'Unsere Empfehlungen für Raspberry Pi, Mini-PCs und SSDs — perfekt für lokale Agenten und Smart Home.',
+      buttonText: '→ Passende Hardware bei Amazon ansehen',
+      url: 'https://amzn.to/4eRHaXc',
+      badge: 'Amazon',
+    };
+  }
+  if (tagStr.includes('smarthome') || tagStr.includes('smart home') || slug.includes('home-assistant') || slug.includes('smart-home')) {
+    return {
+      title: '🏠 Smart Home mit Home Assistant',
+      description: 'Dein lokales Smart Home ohne Cloud — mit Home Assistant und Hermes Agent.',
+      buttonText: '→ Home Assistant entdecken',
+      url: 'https://amzn.to/4eRHaXc',
+      badge: 'Empfehlung',
+    };
+  }
+  if (tagStr.includes('ki-automatisierung') || tagStr.includes('ki') || tagStr.includes('hermes agent') || tagStr.includes('lokale ki')) {
+    return {
+      title: '🤖 Lokale KI-Agenten ohne Cloud-Abo',
+      description: 'Hermes Agent lokal betreiben — so sparst du Abokosten und behältst die volle Kontrolle über deine Daten.',
+      buttonText: '→ Mehr über lokale KI-Agenten',
+      url: 'https://amzn.to/4eRHaXc',
+      badge: 'Neu',
+    };
+  }
   if (tagStr.includes('vpn') || slug.includes('vpn')) {
-    
     return {
       title: '🔐 Schütz dein Internet mit einem VPN',
       description: 'Einer der schnellsten & günstigsten VPNs — getestet und empfohlen.',
@@ -79,6 +105,15 @@ function getAffiliateCTA(tags: string[], slug: string) {
       description: 'EarnApp — wie Honeygain, direkt in dein PayPal-Konto. Komplett passiv.',
       buttonText: '→ EarnApp kostenlos starten',
       url: 'https://earnapp.com/i/l9KWY9dJ',
+      badge: 'Referral',
+    };
+  }
+  if (tagStr.includes('passives einkommen') || tagStr.includes('geld verdienen') || tagStr.includes('side hustle')) {
+    return {
+      title: '💸 Passiv Geld verdienen 2026',
+      description: 'Bewährte Methoden für echtes passives Einkommen — Honeygain, EarnApp und mehr.',
+      buttonText: '→ Honeygain starten',
+      url: 'https://r.honeygain.me/STEHM0F453',
       badge: 'Referral',
     };
   }

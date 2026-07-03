@@ -10,7 +10,7 @@
 5. ✅ Day 5 (05.07): Contabo VPS Test (Contabo Affiliate)
 
 ## Automatisch zu generieren (1/Tag ab Tag 6):
-6. Day 6 (06.07): ProtonVPN vs NordVPN vs Surfshark - Ehrlich verglichen
+6. ✅ Day 6 (06.07): ProtonVPN vs NordVPN vs Surfshark - Ehrlich verglichen
 7. Day 7 (07.07): Mastodon Self-Hosting auf Hetzner - So gehst du bei Mastodon auf den sicheren Server 
 8. Day 8 (08.07): Ebay Kleinanzeigen Arbitrage Bot - Automatisch Geld verdienen mit Retro-Spielen
 9. Day 9 (09.07): Mini-PC als Homelab - Intel NUC vs Beelink vs Raspberry Pi 5
