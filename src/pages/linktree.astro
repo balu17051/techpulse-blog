@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const links = [
+  {
+    title: '📰 TechPulse Blog',
+    description: 'Alle Artikel, Guides und SEO-Posts an einem Ort.',
+    url: `${import.meta.env.BASE_URL}blog/`,
+    cta: 'Blog öffnen',
+    accent: 'primary',
+  },
+  {
+    title: '🛒 Angebote & Empfehlungen',
+    description: 'Meine handverlesenen Empfehlungen und Affiliate-Links.',
+    url: `${import.meta.env.BASE_URL}angebote/`,
+    cta: 'Zu den Angeboten',
+    accent: 'accent',
+  },
+  {
+    title: '📦 @schnappdeal auf Telegram',
+    description: 'Tägliche Amazon-Deals, Schnäppchen und schnelle Empfehlungen.',
+    url: 'https://t.me/schnappdeal',
+    cta: 'Kanal beitreten',
+    accent: 'secondary',
+  },
+  {
+    title: '👤 Über Andreas',
+    description: 'Worum es bei TechPulse geht und wie ich arbeite.',
+    url: `${import.meta.env.BASE_URL}about/`,
+    cta: 'Mehr über mich',
+    accent: 'neutral',
+  },
+];
+---
+
+<BaseLayout title="TechPulse Linktree">
+  <div class="max-w-2xl mx-auto py-10 sm:py-16">
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30 text-3xl mb-5">
+        🔗
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-3">TechPulse Linktree</h1>
+      <p class="text-gray-400 text-lg max-w-xl mx-auto">
+        Alle wichtigen Links von TechPulse auf einen Blick: Blog, Angebote und der Telegram-Kanal @schnappdeal.
+      </p>
+    </div>
+
+    <div class="p-4 mb-8 rounded-2xl bg-primary/10 border border-primary/20">
+      <p class="text-sm text-gray-300 m-0">
+        <strong class="text-primary">Hinweis:</strong> Einige Links sind Partner-Links. Wenn du darüber etwas kaufst oder klickst, unterstützt du TechPulse ohne Mehrkosten.
+      </p>
+    </div>
+
+    <div class="grid gap-4">
+      {links.map((link) => (
+        <a
+          href={link.url}
+          target={link.url.startsWith('http') ? '_blank' : undefined}
+          rel={link.url.startsWith('http') ? 'noopener sponsored' : undefined}
+          class="block p-5 rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-gray-900 to-primary/5 hover:border-primary hover:from-primary/10 hover:to-gray-900 transition-all duration-300 group hover:scale-[1.02] shadow-lg shadow-primary/5 hover:shadow-primary/20"
+        >
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <h2 class="text-lg sm:text-xl font-semibold text-white group-hover:text-primary transition-colors">{link.title}</h2>
+              <p class="text-gray-500 text-sm mt-1">{link.description}</p>
+            </div>
+            <span class="px-3 py-1.5 text-sm font-bold whitespace-nowrap rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all">
+              {link.cta} →
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-10 text-center">
+      <a href={`${import.meta.env.BASE_URL}`} class="text-primary hover:text-accent transition-colors font-medium">
+        ← Zur Startseite
+      </a>
+    </div>
+  </div>
+</BaseLayout>
