@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const amazonLink = 'https://amzn.to/4eRHaXc';
+
+const useCases = [
+  {
+    title: '🏠 Smart Home & Alltag',
+    description: 'Produkte, die du im Alltag wirklich nutzt: Smart-Steckdosen, Sensoren, Lampen und Zubehör für Home Assistant.',
+    tip: 'Perfekt für Nutzer, die nach konkreten Lösungen statt nach “irgendwas von Amazon” suchen.',
+  },
+  {
+    title: '🖥️ Server, NAS & Homelab',
+    description: 'Mini-PCs, SSDs, Speicher und Zubehör für Self-Hosting, TrueNAS und Docker-Setups.',
+    tip: 'Sehr stark, wenn die Zielgruppe bereits nach Hardware mit Kaufabsicht sucht.',
+  },
+  {
+    title: '🔐 Sicherheit & Produktivität',
+    description: 'Passwort-Manager, Hardware-2FA, SSDs, Kabel, Backups und kleine Tools mit hoher Nutzungsdauer.',
+    tip: 'Diese Themen konvertieren gut, weil sie ein konkretes Problem lösen.',
+  },
+];
+
+const steps = [
+  '1. Suchbegriff oder Problem definieren',
+  '2. Einen passenden Blogartikel oder eine Empfehlungsseite bauen',
+  '3. Den Amazon-Link als klare Empfehlung platzieren',
+  '4. Über Startseite, Linktree und Angebote-Seite auf dieselbe Seite verlinken',
+];
+---
+
+<BaseLayout
+  title="Amazon Empfehlungen"
+  description="Klickstarke Amazon-Empfehlungen für Smart Home, Server, Homelab und Sicherheit — sauber gebündelt auf einer Seite."
+  type="website"
+>
+  <section class="mb-12">
+    <div class="rounded-3xl border border-primary/30 bg-gradient-to-br from-primary/10 via-gray-900 to-accent/10 p-7 sm:p-10 overflow-hidden relative">
+      <div class="absolute -top-6 -right-6 w-40 h-40 rounded-full bg-primary/20 blur-3xl"></div>
+      <div class="absolute -bottom-10 -left-10 w-44 h-44 rounded-full bg-accent/20 blur-3xl"></div>
+      <div class="relative max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-semibold border border-primary/30 mb-4">
+          🛒 Amazon-Funnel für TechPulse
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-white leading-tight mb-4">
+          Empfehlungen, die <span class="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">wirklich klicken</span> und nicht wie Werbung wirken.
+        </h1>
+        <p class="text-gray-300 text-lg sm:text-xl max-w-2xl mb-6">
+          Statt den Amazon-Link planlos zu streuen, bündeln wir alles auf einer Seite: klare Themen, starke Kaufabsicht und ein sauberer Übergang zu den passenden Empfehlungen.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href={amazonLink} target="_blank" rel="noopener sponsored" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary/80 text-white font-bold transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/25">
+            Amazon-Empfehlungen öffnen →
+          </a>
+          <a href={`${import.meta.env.BASE_URL}blog/amazon-associates-deep-dive-passives-einkommen/`} class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/10 font-semibold transition-all duration-300">
+            Amazon-Guide lesen
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-12 grid gap-4 md:grid-cols-3">
+    {useCases.map((item) => (
+      <div class="rounded-2xl border border-gray-800 bg-gray-900/60 p-6 hover:border-primary/40 transition-colors">
+        <h2 class="text-xl font-bold text-white mb-3">{item.title}</h2>
+        <p class="text-gray-400 mb-4">{item.description}</p>
+        <p class="text-sm text-primary/90 font-medium">{item.tip}</p>
+      </div>
+    ))}
+  </section>
+
+  <section class="mb-12 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+    <div class="rounded-2xl border border-gray-800 bg-gray-900/60 p-6 sm:p-8">
+      <h2 class="text-2xl font-bold text-white mb-4">So wird aus dem Link ein Funnel</h2>
+      <div class="grid gap-3">
+        {steps.map((step) => (
+          <div class="flex items-start gap-3 rounded-xl border border-gray-800 bg-gray-950/50 p-4">
+            <span class="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary/20 text-primary font-bold">✓</span>
+            <p class="text-gray-300 m-0">{step}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-gray-900 to-primary/5 p-6 sm:p-8">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/15 text-primary text-sm font-semibold border border-primary/20 mb-4">
+        EMPFEHLUNG
+      </div>
+      <h2 class="text-2xl font-bold text-white mb-3">Direkt zur Amazon-Seite</h2>
+      <p class="text-gray-400 mb-6">
+        Hier landet jeder, der schon Kaufabsicht hat — ohne Umwege, ohne Streuverlust.
+      </p>
+      <a href={amazonLink} target="_blank" rel="noopener sponsored" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary/80 text-white font-bold transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/25">
+        Jetzt zu Amazon →
+      </a>
+      <p class="text-xs text-gray-500 mt-3">Partner-Link · Keine zusätzlichen Kosten für dich</p>
+    </div>
+  </section>
+
+  <section class="mb-12 rounded-2xl border border-gray-800 bg-gray-900/50 p-6 sm:p-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Warum das besser ist als Links in Gruppen</h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-5">
+        <h3 class="font-semibold text-white mb-2">Mehr Kaufabsicht</h3>
+        <p class="text-gray-400">Menschen auf einer Themen-Seite sind näher an der Entscheidung als Leute in allgemeinen Gruppenfeeds.</p>
+      </div>
+      <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-5">
+        <h3 class="font-semibold text-white mb-2">Weniger Spam-Risiko</h3>
+        <p class="text-gray-400">Du brauchst keine fremden Gruppen zu überzeugen, sondern leitest Besucher auf eine passende Seite.</p>
+      </div>
+      <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-5">
+        <h3 class="font-semibold text-white mb-2">Besser für Google</h3>
+        <p class="text-gray-400">Eine fokussierte Landingpage kann organischen Traffic ziehen und langfristig laufen.</p>
+      </div>
+      <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-5">
+        <h3 class="font-semibold text-white mb-2">Skalierbar</h3>
+        <p class="text-gray-400">Die Seite kann später mit weiteren Empfehlungen, Vergleichen und Blogartikeln erweitert werden.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rounded-2xl border border-primary/20 bg-primary/5 p-6 sm:p-8">
+    <h2 class="text-2xl font-bold text-white mb-3">Nächster sinnvoller Schritt</h2>
+    <p class="text-gray-300 mb-5">
+      Ich habe die Seite so angelegt, dass sie als Sammelpunkt für Amazon-Traffic dient. Als nächstes können wir einzelne Blogposts noch gezielter auf Themen mit Kaufabsicht ausrichten.
+    </p>
+    <div class="flex flex-wrap gap-3">
+      <a href={`${import.meta.env.BASE_URL}angebote/`} class="px-5 py-3 rounded-xl bg-accent/20 hover:bg-accent/30 text-accent border border-accent/40 font-semibold transition-colors">
+        Angebote ansehen
+      </a>
+      <a href={`${import.meta.env.BASE_URL}linktree/`} class="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/10 font-semibold transition-colors">
+        Linktree öffnen
+      </a>
+    </div>
+  </section>
+</BaseLayout>
