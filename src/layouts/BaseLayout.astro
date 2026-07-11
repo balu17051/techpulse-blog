@@ -18,6 +18,7 @@ const {
 const siteUrl = 'https://balu17051.github.io';
 const fullUrl = canonicalURL || `${siteUrl}${Astro.url.pathname}`;
 const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
+import VisitorCounter from '../components/VisitorCounter.astro';
 ---
 
 <!doctype html>
@@ -107,8 +108,9 @@ const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
     </main>
 
     <footer class="border-t border-gray-800 mt-16">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-center text-gray-500 text-sm">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center text-gray-500 text-sm">
         <p>© 2026 TechPulse – powered by ☕ & 🤖</p>
+        <VisitorCounter />
       </div>
     </footer>
   </body>

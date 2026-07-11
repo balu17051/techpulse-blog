@@ -1,0 +1,69 @@
+---
+// TechPulse – Privacy-freundlicher Besucherzähler
+// 
+// 1) Lokaler Zähler per localStorage
+//    - zählt nur Besuche aus dem gleichen Browser
+//    - wird alle 30 Minuten nur einmal erhöht
+//    - kein Tracking, kein Cookie, keine Cloud
+//
+// 2) GA4 Tracking Platzhalter
+//    - Measurement-ID unten eintragen für echte Analytics
+//
+import type { AstroComponentFactory } from 'astro';
+---
+
+<!-- GA4 Tracking (nur aktivieren wenn Measurement-ID eingetragen) -->
+{'G-XXXXXXXXXX' !== 'G-XXXXXXXXXX' && (
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      page_path: window.location.pathname,
+      anonymize_ip: true,
+    });
+  </script>
+)}
+
+<span
+  id="visitor-counter"
+  class="inline-flex items-center gap-1.5 text-xs text-gray-400 select-none"
+  title="Besuche von deinem Browser (kein Tracking)"
+>
+  <span class="relative flex h-2.5 w-2.5" aria-hidden="true">
+    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+  </span>
+  <span>Besucher:</span>
+  <span id="counter-loading" class="text-gray-600">…</span>
+  <span id="counter-value" class="font-mono font-bold text-primary hidden"></span>
+</span>
+
+<script client:load>
+  (function () {
+    const STORAGE_KEY = 'techpulse_visits';
+    const DEDUP_MS = 30 * 60 * 1000; // 30 Minuten zwischen Zählungen
+    const loadingEl = document.getElementById('counter-loading');
+    const valueEl = document.getElementById('counter-value');
+
+    if (!loadingEl || !valueEl) return;
+
+    let count = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+    const now = Date.now();
+    const lastSeen = parseInt(localStorage.getItem(STORAGE_KEY + '_ts') || '0', 10);
+
+    function render(n) {
+      loadingEl.classList.add('hidden');
+      valueEl.textContent = n.toLocaleString('de-DE');
+      valueEl.classList.remove('hidden');
+    }
+
+    if (now - lastSeen >= DEDUP_MS) {
+      count += 1;
+      localStorage.setItem(STORAGE_KEY, String(count));
+      localStorage.setItem(STORAGE_KEY + '_ts', String(now));
+    }
+
+    render(count);
+  })();
+</script>
