@@ -9,8 +9,8 @@ export interface Props {
 
 const { 
   title, 
-  description = 'TechPulse – Tech, Krypto, Automatisierung & DIY Blog', 
-  image = '/techpulse-blog/og-image.png',
+  description = 'TechPulse – Amazon Deals & handverlesene Angebote mit Affiliate-Links.', 
+  image = '/techpulse-blog/og-image.png', 
   canonicalURL,
   type = 'website'
 } = Astro.props;
@@ -27,7 +27,7 @@ import VisitorCounter from '../components/VisitorCounter.astro';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="keywords" content="Tech, Krypto, Automatisierung, DIY, Docker, Linux, Self-Hosted, Smart Home, Server, Tutorial" />
+    <meta name="keywords" content="Amazon Deals, Schnäppchen, Angebote, Affiliate" />
     <meta name="author" content="Andreas Stehmann" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="generator" content={Astro.generator} />
@@ -94,11 +94,7 @@ import VisitorCounter from '../components/VisitorCounter.astro';
           </span>
         </a>
         <div class="flex items-center gap-6 text-sm font-medium">
-          <a href={`${import.meta.env.BASE_URL}`} class="text-gray-400 hover:text-white transition-colors">Home</a>
-          <a href={`${import.meta.env.BASE_URL}blog/`} class="text-gray-400 hover:text-white transition-colors">Blog</a>
-          <a href={`${import.meta.env.BASE_URL}linktree/`} class="text-gray-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-primary/10 hover:text-primary font-medium">🔗 Linktree</a>
-          <a href={`${import.meta.env.BASE_URL}angebote/`} class="text-gray-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-primary/10 hover:text-primary font-medium">🛒 Angebote</a>
-          <a href={`${import.meta.env.BASE_URL}about/`} class="text-gray-400 hover:text-white transition-colors">Über mich</a>
+          <a href={`${import.meta.env.BASE_URL}angebote/`} class="text-gray-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-primary/10 hover:text-primary font-medium">Angebote</a>
         </div>
       </div>
     </nav>
@@ -109,7 +105,7 @@ import VisitorCounter from '../components/VisitorCounter.astro';
 
     <footer class="border-t border-gray-800 mt-16">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center text-gray-500 text-sm">
-        <p>© 2026 TechPulse – powered by ☕ & 🤖</p>
+        <p>© 2026 TechPulse Deals</p>
         <VisitorCounter />
       </div>
     </footer>

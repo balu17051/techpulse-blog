@@ -1,41 +1,27 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../layouts/BaseLayout';
 
 const links = [
   {
-    title: '📰 TechPulse Blog',
-    description: 'Alle Artikel, Guides und SEO-Posts an einem Ort.',
-    url: `${import.meta.env.BASE_URL}blog/`,
-    cta: 'Blog öffnen',
-    accent: 'primary',
-  },
-  {
-    title: '🛍️ Amazon-Empfehlungen',
-    description: 'Die besten Treffer für Smart Home, Server, Sicherheit und Alltag.',
-    url: `${import.meta.env.BASE_URL}amazon/`,
-    cta: 'Jetzt öffnen',
-    accent: 'accent',
-  },
-  {
-    title: '🛒 Angebote & Empfehlungen',
-    description: 'Meine handverlesenen Empfehlungen und Affiliate-Links.',
+    title: '🛒 Angebote & Amazon Deals',
+    description: 'Handverlesene Amazon-Angebote mit Preis und Rabatt.',
     url: `${import.meta.env.BASE_URL}angebote/`,
     cta: 'Zu den Angeboten',
     accent: 'accent',
   },
   {
     title: '📦 @schnappdeal auf Telegram',
-    description: 'Tägliche Amazon-Deals, Schnäppchen und schnelle Empfehlungen.',
+    description: 'Tägliche Amazon-Deals, schnelle Hinweise, keine Diskussionen.',
     url: 'https://t.me/schnappdeal',
     cta: 'Kanal beitreten',
     accent: 'secondary',
   },
   {
-    title: '👤 Über Andreas',
-    description: 'Worum es bei TechPulse geht und wie ich arbeite.',
-    url: `${import.meta.env.BASE_URL}about/`,
-    cta: 'Mehr über mich',
-    accent: 'neutral',
+    title: '🗂️ TechPulse Angebote',
+    description: 'Gefilterte Empfehlungen für Smart Home, Server, Sicherheit und Alltag.',
+    url: `${import.meta.env.BASE_URL}amazon/`,
+    cta: 'Jetzt öffnen',
+    accent: 'primary',
   },
 ];
 ---
@@ -46,15 +32,15 @@ const links = [
       <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30 text-3xl mb-5">
         🔗
       </div>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-3">TechPulse Linktree</h1>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-3">TechPulse</h1>
       <p class="text-gray-400 text-lg max-w-xl mx-auto">
-        Alle wichtigen Links von TechPulse auf einen Blick: Blog, Angebote und der Telegram-Kanal @schnappdeal.
+        Amazon Deals, Angebote und Telegram-Kanal auf einen Blick.
       </p>
     </div>
 
     <div class="p-4 mb-8 rounded-2xl bg-primary/10 border border-primary/20">
       <p class="text-sm text-gray-300 m-0">
-        <strong class="text-primary">Hinweis:</strong> Einige Links sind Partner-Links. Wenn du darüber etwas kaufst oder klickst, unterstützt du TechPulse ohne Mehrkosten.
+        <strong class="text-primary">Hinweis:</strong> Einige Links sind Partner-Links. Wenn du darüber einkaufst, unterstützt du uns ohne Mehrkosten.
       </p>
     </div>
 

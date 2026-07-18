@@ -1,74 +1,30 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../layouts/BaseLayout';
 ---
 
-<BaseLayout title="Über mich">
-  <div class="max-w-3xl mx-auto">
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Über mich</h1>
-    
-    <div class="prose prose-invert prose-lg max-w-none
-      prose-headings:text-white prose-a:text-primary">
-      
-      <p class="text-xl text-gray-300 mb-6">
-        Hey! Ich bin <strong class="text-white">Andreas</strong> — Tech-Enthusiast, Krypto-Interessierter und Automatisierungs-Fan.
-      </p>
+<BaseLayout title="Über TechPulse Deals" description="Worum es auf TechPulse geht: handverlesene Amazon-Deals und klare Kaufempfehlungen.">
+  <div class="max-w-3xl mx-auto py-10 sm:py-14">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Über TechPulse</h1>
 
+    <div class="space-y-4 text-gray-300">
       <p>
-        Auf <strong>TechPulse</strong> teile ich meine Erfahrungen aus der Welt der Technologie, 
-        Kryptowährungen und der Automatisierung. Ob Smart Home mit TrueNAS, 
-        Trading-Bots auf Solana, oder KI-gestützte Blog-Automatisierung — 
-        ich probiere es aus und schreibe darüber.
+        TechPulse ist mein Deal-Blog für Amazon-Angebote. Ich konzentriere mich auf übersichtliche Angebote mit klarer Preisdarstellung und Affiliate-Links.
       </p>
+      <p>
+        Wichtig: Ich zeige nur Angebote, bei denen sich ein Kauf lohnen kann. Kein Ramsch, keine nutzlosen Deals.
+      </p>
+      <p>
+        <strong class="text-white">Hinweis:</strong> Einige Links sind Partner-Links. Wenn du darüber einkaufst, erhalte ich eine kleine Provision — ohne Mehrkosten für dich.
+      </p>
+    </div>
 
-      <h2>Was dich hier erwartet</h2>
-      
-      <ul>
-        <li><strong>Tech & Gadgets</strong> — Hardware-Tests, Setups und Tipps</li>
-        <li><strong>Krypto & Trading</strong> — Praxisberichte aus der DeFi-Welt</li>
-        <li><strong>Automatisierung & DIY</strong> — Wenn der Computer die Arbeit macht</li>
-        <li><strong>KI & Tools</strong> — Was KI wirklich kann (und was nicht)</li>
-      </ul>
-
-      <h2>Meine Setup-Highlights</h2>
-      <ul>
-        <li>🏡 TrueNAS Docker-Server für Smart Home & Self-Hosting</li>
-        <li>🤖 KI-Automatisierung für Content-Erstellung</li>
-        <li>💰 Solana/Phantom Wallet für DeFi-Experimente</li>
-        <li>📝 Dieser Blog — automatisch generiert und auf GitHub Pages gehostet</li>
-      </ul>
-
-      <div class="mt-10 p-6 rounded-xl bg-gray-900 border border-gray-800">
-        <p class="text-gray-400 text-sm m-0">
-          💡 <strong class="text-white">Fun Fact:</strong> Dieser Blog wird mit Astro gebaut,
-          auf GitHub Pages gehostet und komplett ohne Kosten betrieben.
-          So muss Tech sein — effizient und kostenlos!
-        </p>
-      </div>
-
-      <div class="mt-10">
-        <h2>Meine Empfehlungen</h2>
-        <p>Diese Produkte nutze ich selbst oder empfehle ich aus Überzeugung. Die Links sind Amazon-Partnerlinks — für dich entstehen keine extra Kosten, aber du unterstützt TechPulse damit.</p>
-        <div class="grid gap-4 sm:grid-cols-2">
-          <a href="https://amzn.to/4eRHaXc" target="_blank" rel="noopener sponsored" class="p-4 rounded-xl border border-gray-800 bg-gray-900/50 hover:border-primary/50 hover:from-primary/10 transition-all duration-300 group">
-            <div class="flex items-center justify-between">
-              <div>
-                <h3 class="text-white font-semibold group-hover:text-primary transition-colors">🛒 Amazon Storefront</h3>
-                <p class="text-gray-500 text-xs mt-1">Alle meine Tech-Empfehlungen auf einen Blick</p>
-              </div>
-              <span class="text-primary text-sm font-bold">→</span>
-            </div>
-          </a>
-          <a href="https://r.honeygain.me/STEHM0F453" target="_blank" rel="noopener sponsored" class="p-4 rounded-xl border border-gray-800 bg-gray-900/50 hover:border-primary/50 hover:from-primary/10 transition-all duration-300 group">
-            <div class="flex items-center justify-between">
-              <div>
-                <h3 class="text-white font-semibold group-hover:text-primary transition-colors">🍯 Honeygain</h3>
-                <p class="text-gray-500 text-xs mt-1">Passiv Geld verdienen mit ungenutzter Bandbreite</p>
-              </div>
-              <span class="text-primary text-sm font-bold">→</span>
-            </div>
-          </a>
-        </div>
-      </div>
+    <div class="mt-8 flex flex-wrap gap-3 text-sm">
+      <a href={`${import.meta.env.BASE_URL}angebote/`} class="px-4 py-2 rounded-lg bg-primary hover:bg-primary/80 text-white font-semibold transition-colors">
+        Angebote
+      </a>
+      <a href="https://t.me/schnappdeal" target="_blank" rel="noopener" class="px-4 py-2 rounded-lg bg-accent/20 hover:bg-accent/30 text-accent border border-accent/40 font-semibold transition-colors">
+        📦 @schnappdeal
+      </a>
     </div>
   </div>
 </BaseLayout>

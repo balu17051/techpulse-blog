@@ -1,18 +1,10 @@
-# TechPulse Blog ⚡
+# TechPulse Deals ⚡
 
-Automatisierter Blog von Andreas — Tech, Krypto, Automatisierung & DIY.
+Amazon-Deal-Blog von Andreas — klar, übersichtlich, direkt kaufbar.
 
-## Tech Stack
-- Astro + Tailwind CSS
-- GitHub Pages Hosting
-- Automatisches Deploy via GitHub Actions
-
-## Themen
-- 🏠 Smart Home & TrueNAS
-- 🪙 Krypto & DeFi
-- 🤖 KI & Automatisierung
-- 📈 ETF & Investing
-- 🐳 Docker & DevOps
-
----
-*Automatisch generiert und aktualisiert*
+## Inhalt
+- Startseite: aktuelle Amazon-Angebote
+- Angebote: Deal-Übersicht mit Preis + Rabatt + Link
+- Deal Guides: kurze Kaufberichte zu konkreten Produkten
+- Linktree: alle wichtigen Links auf einen Blick
+- Telegram: @schnappdeal

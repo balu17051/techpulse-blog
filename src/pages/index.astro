@@ -1,204 +1,152 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { GENRES, grouped } from '../data/genres';
+import BaseLayout from '../layouts/BaseLayout';
 
-const allPosts = import.meta.glob('./blog/*.md', { eager: true });
-const posts = Object.entries(allPosts).map(([path, post]: [string, any]) => ({
-  slug: path.split('/').pop()?.replace('.md', ''),
-  ...post.frontmatter,
-}));
-const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-const coverSrc = (slug: string) => `${import.meta.env.BASE_URL}covers/${slug}.svg`;
-const latestPost = sortedPosts[0];
-const restPosts = sortedPosts.slice(1);
+const deals = [
+  {
+    title: 'roborock F25 GT Wet/Dry Vacuum',
+    category: 'Smart Home',
+    priceOld: 329,
+    priceNew: 204,
+    currency: '$',
+    asin: 'B0DPHT4KB1',
+    link: 'https://www.amazon.de/dp/B0DPHT4KB1?th=1&linkCode=ll2&tag=balu17051-21&linkId=af036d93ac55964a78dadadb6d997b73&ref_=as_li_ss_tl',
+    image: 'https://m.media-amazon.com/images/I/51e70-aZRJL._AC_SX569_.jpg',
+    hot: true,
+  },
+  {
+    title: 'Echo Dot (5th Gen) Smart Speaker',
+    category: 'Smart Home',
+    priceOld: 59,
+    priceNew: 33,
+    currency: '$',
+    asin: 'B09BDKJY6Q',
+    link: 'https://www.amazon.de/dp/B09BDKJY6Q?tag=balu17051-21',
+    image: 'https://m.media-amazon.com/images/I/51jONI3qKmL._AC_SX569_.jpg',
+    hot: true,
+  },
+  {
+    title: 'Fire HD 10 Tablet (32GB)',
+    category: 'Tablets',
+    priceOld: 149,
+    priceNew: 89,
+    currency: '$',
+    asin: 'B08N5WRWNW',
+    link: 'https://www.amazon.de/dp/B08N5WRWNW?tag=balu17051-21',
+    image: 'https://m.media-amazon.com/images/I/51-phS739BL._AC_SX569_.jpg',
+    hot: false,
+  },
+  {
+    title: 'Samsung 980 PRO 1TB SSD',
+    category: 'PC & Zubehör',
+    priceOld: 179,
+    priceNew: 114,
+    currency: '$',
+    asin: 'B08G73NKW4',
+    link: 'https://www.amazon.de/dp/B08G73NKW4?tag=balu17051-21',
+    image: 'https://m.media-amazon.com/images/I/51wCsc4U2dL._AC_SX569_.jpg',
+    hot: false,
+  },
+];
+
+const hotDeals = deals.filter(d => d.hot);
+const normalDeals = deals.filter(d => !d.hot);
+const discount = (newP: number, oldP: number) => Math.round((1 - newP / oldP) * 100);
 ---
 
-<BaseLayout title="Tech, Krypto & Automatisierung">
-  <!-- Hero -->
-  <section class="py-12 sm:py-20 text-center">
-    <h1 class="text-4xl sm:text-6xl font-extrabold mb-6 leading-tight">
-      <span class="bg-gradient-to-r from-primary via-purple-500 to-accent bg-clip-text text-transparent">
-        TechPulse
-      </span>
-    </h1>
-    <p class="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-8">
-      Tech, Krypto, Automatisierung & DIY — plus Blog, Angebote und Telegram an einem Ort.
-    </p>
-    <div class="flex justify-center gap-4 text-sm flex-wrap">
-      <a href={`${import.meta.env.BASE_URL}blog/`} class="px-6 py-3 rounded-lg bg-primary hover:bg-primary/80 text-white font-semibold transition-colors">
-        Alle Artikel →
-      </a>
-      <a href={`${import.meta.env.BASE_URL}linktree/`} class="px-6 py-3 rounded-lg bg-accent/20 hover:bg-accent/30 text-accent border border-accent/40 font-semibold transition-colors">
-        🔗 Linktree
-      </a>
-      <a href={`${import.meta.env.BASE_URL}angebote/`} class="px-6 py-3 rounded-lg bg-accent/20 hover:bg-accent/30 text-accent border border-accent/40 font-semibold transition-colors">
-        🛒 Angebote
-      </a>
-      <a href={`${import.meta.env.BASE_URL}amazon/`} class="px-6 py-3 rounded-lg bg-primary/20 hover:bg-primary/30 text-primary border border-primary/40 font-semibold transition-colors">
-        🛍️ Amazon
-      </a>
-    </div>
-  </section>
-
-  <!-- SchnappDeal Telegram CTA -->
-  <section class="mb-14">
-    <a href="https://t.me/schnappdeal" target="_blank" rel="noopener" class="block group">
-      <div class="rounded-2xl border border-accent/40 bg-gradient-to-r from-accent/10 via-gray-900 to-primary/10 p-6 sm:p-8 hover:border-accent transition-all duration-300">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <div class="text-4xl">🛒</div>
-          <div class="flex-1">
-            <h2 class="text-xl sm:text-2xl font-bold text-white mb-1 group-hover:text-accent transition-colors">
-              @schnappdeal – Täglich die besten Amazon-Deals
-            </h2>
-            <p class="text-gray-400 mb-3">
-              2–3 handverlesene Schnäppchen pro Tag, nur Produkte ab 4,5 Sternen — direkt aufs Handy per Telegram.
-            </p>
-            <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent hover:bg-accent/80 text-white font-bold transition-all duration-300 hover:scale-105">
-              Jetzt Kanal beitreten
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </a>
-  </section>
-
-  <!-- Genre-Karten (NEU: Ordnen nach Themenbereich) -->
-  <section class="mb-14">
-    <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6">
-      Themen entdecken
-    </h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {GENRES.map(genre => (
-        <a
-          href={`${import.meta.env.BASE_URL}blog/?genre=${genre.slug}`}
-          class={'block rounded-xl border bg-gradient-to-br p-5 transition-all duration-300 hover:scale-[1.02] hover:border-white/30 ' + genre.color + ' border-white/10'}
-        >
-          <span class="text-3xl mb-3 block">{genre.icon}</span>
-          <h3 class={'font-bold text-base mb-1 ' + genre.accent}>{genre.label}</h3>
-          <p class="text-gray-500 text-xs line-clamp-2">{genre.description}</p>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <!-- Linktree CTA -->
-  <section class="mb-14">
-    <a href={`${import.meta.env.BASE_URL}linktree/`} class="block group">
-      <div class="rounded-2xl border border-primary/40 bg-gradient-to-r from-primary/10 via-gray-900 to-accent/10 p-6 sm:p-8 hover:border-primary transition-all duration-300">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <div class="text-4xl">🔗</div>
-          <div class="flex-1">
-            <h2 class="text-xl sm:text-2xl font-bold text-white mb-1 group-hover:text-primary transition-colors">
-              TechPulse Linktree — alle wichtigen Links auf einen Blick
-            </h2>
-            <p class="text-gray-400 mb-3">
-              Blog, Angebote, Telegram und Über-mich-Seite gebündelt in einer einzigen Übersichtsseite.
-            </p>
-            <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/80 text-white font-bold transition-all duration-300 hover:scale-105">
-              Linktree öffnen
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </a>
-  </section>
-
-  <!-- Amazon Empfehlungen -->
-  <section class="mb-14">
-    <a href={`${import.meta.env.BASE_URL}amazon/`} class="block group">
-      <div class="rounded-2xl border border-primary/40 bg-gradient-to-r from-primary/10 via-gray-900 to-accent/10 p-6 sm:p-8 hover:border-primary transition-all duration-300">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <div class="text-4xl">🛍️</div>
-          <div class="flex-1">
-            <h2 class="text-xl sm:text-2xl font-bold text-white mb-1 group-hover:text-primary transition-colors">
-              Amazon-Empfehlungen — die besten Treffer für Smart Home, Server & Sicherheit
-            </h2>
-            <p class="text-gray-400 mb-3">
-              Kein Affiliate-Gewitter, sondern eine fokussierte Seite mit klaren Empfehlungen, die zum Thema passen.
-            </p>
-            <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/80 text-white font-bold transition-all duration-300 hover:scale-105">
-              Empfehlungen ansehen
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </a>
-  </section>
-
-  <!-- Featured Post -->
-  {latestPost && (
-    <section class="mb-14">
-      <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6">Neuester Artikel</h2>
-      <a href={`${import.meta.env.BASE_URL}blog/${latestPost.slug}/`} class="block group">
-        <div class="rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900 to-gray-900/50 overflow-hidden hover:border-primary/40 transition-all duration-300">
-          <div class="aspect-[16/7] sm:aspect-[16/6] bg-gray-950">
-            <img
-              src={coverSrc(latestPost.slug)}
-              alt={latestPost.title}
-              class="h-full w-full object-cover"
-              loading="eager"
-            />
-          </div>
-          <div class="p-6 sm:p-8">
-            <div class="flex flex-wrap gap-2 mb-4">
-              {(latestPost.tags || []).map((tag) => (
-                <span class="px-3 py-1 text-xs font-medium rounded-full bg-primary/20 text-primary border border-primary/30">{tag}</span>
-              ))}
-            </div>
-            <h3 class="text-2xl sm:text-3xl font-bold text-white group-hover:text-primary transition-colors mb-3">
-              {latestPost.title}
-            </h3>
-            <p class="text-gray-400 text-lg mb-4">{latestPost.description}</p>
-            <time datetime={latestPost.date} class="text-gray-600 text-sm">
-              {new Date(latestPost.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </time>
-          </div>
-        </div>
-      </a>
+<BaseLayout title="Angebote" description="Amazon-Deals im MyDealz-Stil: Top Deals, Preis und direkte Kauf-Links.">
+  <div class="max-w-5xl mx-auto">
+    <section class="py-8 sm:py-10">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Angebote</h1>
+      <p class="text-gray-400 text-base sm:text-lg mb-6">
+        Handverlesene Amazon-Rabatte — kompakt wie MyDealz.
+      </p>
     </section>
-  )}
 
-  <!-- More Posts -->
-  {restPosts.length > 0 && (
-    <section>
-      <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6">Weitere Artikel</h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {restPosts.map((post) => (
-          <a href={`${import.meta.env.BASE_URL}blog/${post.slug}/`} class="block group">
-            <div class="rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden hover:border-primary/50 hover:bg-gray-900 transition-all duration-300">
-              <div class="aspect-video bg-gray-950">
-                <img
-                  src={coverSrc(post.slug)}
-                  alt={post.title}
-                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                  loading="lazy"
-                />
+    {hotDeals.length > 0 && (
+      <section class="mb-10">
+        <h2 class="text-xl font-extrabold text-white mb-4 flex items-center gap-2">
+          🔥 Top Deals
+        </h2>
+        <div class="space-y-3">
+          {hotDeals.map((deal) => (
+            <a
+              href={deal.link}
+              target="_blank"
+              rel="noopener sponsored"
+              class="flex items-center gap-4 rounded-xl border border-orange-500/30 bg-orange-500/5 p-4 hover:border-orange-400/60 transition-colors"
+            >
+              <div class="hidden sm:block w-16 h-16 rounded-lg overflow-hidden bg-gray-900 border border-gray-800 shrink-0">
+                <img src={deal.image} alt={deal.title} class="h-full w-full object-cover" loading="lazy" />
               </div>
-              <div class="p-5">
-                <div class="flex flex-wrap gap-2 mb-3">
-                  {(post.tags || []).map((tag) => (
-                    <span class="px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider rounded bg-gray-800 text-gray-400">{tag}</span>
-                  ))}
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-xs font-semibold uppercase tracking-wider rounded bg-orange-500/15 text-orange-300 border border-orange-500/30 px-2 py-0.5">
+                    {deal.category}
+                  </span>
+                  <span class="text-xs font-bold text-orange-300">🔥 Top Deal</span>
                 </div>
-                <h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors mb-2">{post.title}</h3>
-                <p class="text-gray-500 text-sm line-clamp-2 mb-3">{post.description}</p>
-                <time datetime={post.date} class="text-gray-600 text-xs">
-                  {new Date(post.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'short', day: 'numeric' })}
-                </time>
+                <h3 class="text-base font-bold text-white truncate">
+                  {deal.title}
+                </h3>
+              </div>
+              <div class="text-right shrink-0">
+                <div class="text-xl font-extrabold text-white">
+                  {deal.currency}{deal.priceNew}
+                </div>
+                <div class="text-xs text-gray-500 line-through">{deal.currency}{deal.priceOld}</div>
+                <div class="text-sm font-bold text-emerald-400">
+                  -{discount(deal.priceNew, deal.priceOld)}%
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="mb-14">
+      <h2 class="text-xl font-extrabold text-white mb-4">Alle Deals</h2>
+      <div class="space-y-2">
+        {normalDeals.map((deal) => (
+          <a
+            href={deal.link}
+            target="_blank"
+            rel="noopener sponsored"
+            class="flex items-center gap-4 rounded-xl border border-gray-800 bg-gray-900/40 p-4 hover:border-primary/50 transition-colors"
+          >
+            <div class="hidden sm:block w-16 h-16 rounded-lg overflow-hidden bg-gray-900 border border-gray-800 shrink-0">
+              <img src={deal.image} alt={deal.title} class="h-full w-full object-cover" loading="lazy" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs font-semibold uppercase tracking-wider rounded bg-primary/15 text-primary border border-primary/25 px-2 py-0.5">
+                  {deal.category}
+                </span>
+              </div>
+              <h3 class="text-base font-bold text-white truncate">
+                {deal.title}
+              </h3>
+            </div>
+            <div class="text-right shrink-0">
+              <div class="text-xl font-extrabold text-white">
+                {deal.currency}{deal.priceNew}
+              </div>
+              <div class="text-xs text-gray-500 line-through">{deal.currency}{deal.priceOld}</div>
+              <div class="text-sm font-bold text-emerald-400">
+                -{discount(deal.priceNew, deal.priceOld)}%
               </div>
             </div>
           </a>
         ))}
       </div>
     </section>
-  )}
+
+    <section class="mb-14">
+      <div class="p-4 rounded-lg bg-primary/10 border border-primary/20">
+        <p class="text-sm text-gray-300 m-0">
+          <strong class="text-primary">Hinweis:</strong> Affiliate-Links. Wenn du darüber kaufst, erhalten wir eine kleine Provision — für dich entstehen keine zusätzlichen Kosten.
+        </p>
+      </div>
+    </section>
+  </div>
 </BaseLayout>

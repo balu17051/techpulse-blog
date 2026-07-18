@@ -1,178 +1,59 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { GENRES, getCategory, getGenreBySlug } from '../../data/genres';
+import BaseLayout from '../layouts/BaseLayout';
 
 const allPosts = import.meta.glob('../../blog/*.md', { eager: true });
 const posts = Object.entries(allPosts).map(([path, post]: [string, any]) => ({
   slug: path.split('/').pop()?.replace('.md', ''),
-  category: getCategory(path.split('/').pop()?.replace('.md', '') || ''),
+  category: (post.frontmatter.tags || [])[0] || 'angebote',
   ...post.frontmatter,
 }));
-const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
+const sortedPosts = posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const dealLike = sortedPosts.filter(p => /amazon|deal|schnaepp|kauf|earn|honey/i.test(`${p.title} ${p.description}`));
+const postsToShow = dealLike.length > 0 ? dealLike : sortedPosts.slice(0, 9);
 const coverSrc = (slug: string) => `${import.meta.env.BASE_URL}covers/${slug}.svg`;
-
-// Gruppiert nach Genre
-const grouped = new Map<string, typeof posts>();
-for (const post of sortedPosts) {
-  const cat = post.category;
-  if (!grouped.has(cat)) grouped.set(cat, []);
-  grouped.get(cat)!.push(post);
-}
-
-// Genres mit Artikeln sortieren
-const activeGenres = GENRES.filter(g => grouped.has(g.slug));
 ---
 
-<BaseLayout title="Blog – Alle Artikel nach Genre">
-  <div class="mb-8">
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">
-      TechPulse Blog
-    </h1>
-    <p class="text-gray-400 text-lg max-w-2xl">
-      Alle Artikel übersichtlich nach Genre sortiert — wähle eine Kategorie zum Stöbern:
-    </p>
-  </div>
+<BaseLayout title="Deal Guides" description="Kurze Kaufberichte und Deal-Tipps für konkrete Produkte und Amazon-Angebote.">
+  <div class="max-w-5xl mx-auto">
+    <section class="py-10 sm:py-14">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">Deal Guides</h1>
+      <p class="text-gray-400 text-base sm:text-lg max-w-2xl mb-6">
+        Kaufrelevante Inhalte ohne Rauschen.
+      </p>
+      <div class="flex flex-wrap gap-3 text-sm">
+        <a href={`${import.meta.env.BASE_URL}`} class="px-4 py-2 rounded-lg bg-primary hover:bg-primary/80 text-white font-semibold transition-colors">
+          Home
+        </a>
+        <a href={`${import.meta.env.BASE_URL}angebote/`} class="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white border border-white/10 font-semibold transition-colors">
+          Angebote
+        </a>
+      </div>
+    </section>
 
-  <!-- Genre-Navigation (Tabs) -->
-  <div class="flex flex-wrap gap-2 mb-10">
-    <button
-      data-filter="all"
-      class="genre-tab active px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 border bg-white/5 border-white/10 text-white"
-      onclick="filterGenre('all')"
-    >
-      Alle ({sortedPosts.length})
-    </button>
-    {activeGenres.map(genre => {
-      const count = grouped.get(genre.slug)?.length || 0;
-      return (
-        <button
-          data-filter={genre.slug}
-          onclick={'filterGenre("' + genre.slug + '")'}
-          class={'genre-tab px-4 py-2 rounded-lg text-sm font-semibold border transition-all duration-200 ' + genre.accent + ' hover:bg-white/5'}
-        >
-          {genre.icon} {genre.label.replace(/^\S*\s/, '')} ({count})
-        </button>
-      );
-    })}
-  </div>
-
-  <!-- Artikel pro Genre -->
-  <div id="genre-sections" class="space-y-14">
-    {activeGenres.map(genre => {
-      const genrePosts = grouped.get(genre.slug) || [];
-      // Nur Kategorie-Cover als Banner (erster Artikel jeder Kategorie)
-      const coverPost = genrePosts[0];
-      return (
-        <section id={'genre-' + genre.slug} data-genre={genre.slug} class="genre-section">
-          <!-- Genre-Banner -->
-          <div class={'rounded-2xl border bg-gradient-to-r p-6 sm:p-8 mb-8 ' + genre.color + ' border-white/10'}>
-            <div class="flex items-start gap-4">
-              <span class="text-4xl sm:text-5xl filter drop-shadow-lg" aria-hidden="true">{genre.icon}</span>
-              <div>
-                <h2 class={'text-2xl sm:text-3xl font-bold mb-1 ' + genre.accent}>
-                  {genre.label}
-                </h2>
-                <p class="text-gray-400 text-sm sm:text-base">{genre.description}</p>
-                <span class={'inline-block mt-2 px-3 py-1 rounded-full text-xs font-medium border ' + genre.tag}>
-                  {genrePosts.length} Artikel
-                </span>
+    <section>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {postsToShow.map((post) => (
+          <a href={`${import.meta.env.BASE_URL}blog/${post.slug}/`} class="block group">
+            <div class="rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden hover:border-primary/50 hover:bg-gray-900 transition-all duration-300">
+              <div class="aspect-video bg-gray-950">
+                <img
+                  src={coverSrc(post.slug)}
+                  alt={post.title}
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  loading="lazy"
+                />
+              </div>
+              <div class="p-5">
+                <h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors mb-2">{post.title}</h3>
+                <p class="text-gray-500 text-sm line-clamp-2 mb-3">{post.description}</p>
+                <time datetime={post.date} class="text-gray-600 text-xs">
+                  {new Date(post.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'short', day: 'numeric' })}
+                </time>
               </div>
             </div>
-          </div>
-
-          <!-- Artikel-Grid -->
-          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {genrePosts.map((post) => (
-              <a
-                href={`${import.meta.env.BASE_URL}blog/${post.slug}/`}
-                class="block group"
-              >
-                <div class="rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden hover:border-primary/50 hover:bg-gray-900 transition-all duration-300">
-                  <div class="aspect-video bg-gray-950">
-                    <img
-                      src={coverSrc(post.slug)}
-                      alt={post.title}
-                      class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div class="p-5">
-                    <span className={'inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded mb-3 border ' + genre.tag}>
-                      {genre.label.replace(/^\S*\s/, '')}
-                    </span>
-                    <h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors mb-2">
-                      {post.title}
-                    </h3>
-                    <p class="text-gray-500 text-sm line-clamp-2 mb-3">
-                      {post.description}
-                    </p>
-                    <time datetime={post.date} class="text-gray-600 text-xs">
-                      {new Date(post.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'short', day: 'numeric' })}
-                    </time>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-      );
-    })}
+          </a>
+        ))}
+      </div>
+    </section>
   </div>
-
-  <!-- Genre-Filter-Client-Skript -->
-  <script client:load>
-    (function () {
-      const tabs = document.querySelectorAll('.genre-tab');
-      const sections = document.querySelectorAll('.genre-section');
-
-      window.filterGenre = function (slug) {
-        // Aktiven Tab markieren
-        tabs.forEach(tab => {
-          tab.classList.remove('active', 'bg-white/10', 'text-white', 'border-white/20');
-          if (tab.dataset.filter === slug) {
-            tab.classList.add('active', 'bg-white/10', 'text-white', 'border-white/20');
-          }
-        });
-
-        // Sektionen zeigen/verstecken
-        sections.forEach(section => {
-          if (slug === 'all') {
-            section.style.display = 'block';
-          } else {
-            section.style.display = section.dataset.genre === slug ? 'block' : 'none';
-          }
-        });
-
-        // URL-Sync ohne Reload für Teilen-Links
-        try {
-          history.replaceState(null, '', slug === 'all' ? '/blog' : '/blog?genre=' + slug);
-        } catch (e) {}
-      };
-
-      // URL-Parameter beim Laden auswerten
-      try {
-        const params = new URLSearchParams(location.search);
-        const genre = params.get('genre');
-        if (genre) {
-          const exists = document.querySelector('[data-filter="' + genre + '"]');
-          if (exists) filterGenre(genre);
-        }
-      } catch (e) {}
-    })();
-  </script>
-
-  <style>
-    .genre-tab {
-      opacity: 0.7;
-    }
-    .genre-tab:hover {
-      opacity: 1;
-      transform: translateY(-1px);
-    }
-    .genre-tab.active {
-      opacity: 1;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-  </style>
 </BaseLayout>

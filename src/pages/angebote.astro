@@ -1,107 +1,152 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../layouts/BaseLayout';
 
-const affiliateLinks = [
+const deals = [
   {
-    category: '🛒 Amazon Empfehlungen',
-    items: [
-      { name: 'Amazon Storefront', description: 'Meine komplette Empfehlungsliste auf Amazon', url: 'https://amzn.to/4eRHaXc' },
-    ]
+    title: 'roborock F25 GT Wet/Dry Vacuum',
+    category: 'Smart Home',
+    priceOld: 329,
+    priceNew: 204,
+    currency: '$',
+    asin: 'B0DPHT4KB1',
+    link: 'https://www.amazon.de/dp/B0DPHT4KB1?th=1&linkCode=ll2&tag=balu17051-21&linkId=af036d93ac55964a78dadadb6d997b73&ref_=as_li_ss_tl',
+    image: 'https://m.media-amazon.com/images/I/51e70-aZRJL._AC_SX569_.jpg',
+    hot: true,
   },
   {
-    category: '🖥️ Hardware & Server',
-    items: [
-      { name: 'Synology NAS', description: 'Für dein Smart Home & Self-Hosting', url: 'https://amzn.to/4eRHaXc' },
-      { name: 'Raspberry Pi 5', description: 'Einplatinen-Computer für DIY-Projekte', url: 'https://amzn.to/4eRHaXc' },
-    ]
+    title: 'Echo Dot (5th Gen) Smart Speaker',
+    category: 'Smart Home',
+    priceOld: 59,
+    priceNew: 33,
+    currency: '$',
+    asin: 'B09BDKJY6Q',
+    link: 'https://www.amazon.de/dp/B09BDKJY6Q?tag=balu17051-21',
+    image: 'https://m.media-amazon.com/images/I/51jONI3qKmL._AC_SX569_.jpg',
+    hot: true,
   },
   {
-    category: '🔐 Sicherheit & Tools',
-    items: [
-      { name: 'YubiKey 5', description: 'Hardware-2FA für maximale Sicherheit', url: 'https://amzn.to/4eRHaXc' },
-      { name: 'Samsung T7 SSD', description: 'Schnelle externe Speicherung', url: 'https://amzn.to/4eRHaXc' },
-    ]
+    title: 'Fire HD 10 Tablet (32GB)',
+    category: 'Tablets',
+    priceOld: 149,
+    priceNew: 89,
+    currency: '$',
+    asin: 'B08N5WRWNW',
+    link: 'https://www.amazon.de/dp/B08N5WRWNW?tag=balu17051-21',
+    image: 'https://m.media-amazon.com/images/I/51-phS739BL._AC_SX569_.jpg',
+    hot: false,
+  },
+  {
+    title: 'Samsung 980 PRO 1TB SSD',
+    category: 'PC & Zubehör',
+    priceOld: 179,
+    priceNew: 114,
+    currency: '$',
+    asin: 'B08G73NKW4',
+    link: 'https://www.amazon.de/dp/B08G73NKW4?tag=balu17051-21',
+    image: 'https://m.media-amazon.com/images/I/51wCsc4U2dL._AC_SX569_.jpg',
+    hot: false,
   },
 ];
+
+const hotDeals = deals.filter(d => d.hot);
+const normalDeals = deals.filter(d => !d.hot);
+const discount = (newP: number, oldP: number) => Math.round((1 - newP / oldP) * 100);
 ---
 
-<BaseLayout title="Angebote & Empfehlungen">
-  <div class="max-w-3xl mx-auto">
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">Angebote & Empfehlungen</h1>
-    <p class="text-gray-400 mb-2">Meine persönlichen Empfehlungen — handverlesen und getestet.</p>
-
-    <div class="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-gray-900 to-accent/10 p-6 sm:p-8 mb-8">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        <div class="text-4xl">🛍️</div>
-        <div class="flex-1">
-          <h2 class="text-xl sm:text-2xl font-bold text-white mb-1">Amazon-Funnel statt Link-Chaos</h2>
-          <p class="text-gray-400 mb-3">
-            Eine klare Einstiegsseite für alle, die schon Kaufabsicht haben — mit besserer Klickrate als einzelne Gruppenposts.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <a href={`${import.meta.env.BASE_URL}amazon/`} class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/80 text-white font-bold transition-all duration-300 hover:scale-105">
-              Amazon-Seite öffnen
-            </a>
-            <a href={`${import.meta.env.BASE_URL}blog/amazon-associates-deep-dive-passives-einkommen/`} class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/10 font-semibold transition-colors">
-              Amazon-Guide lesen
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex flex-wrap gap-3 mb-8">
-      <a href={`${import.meta.env.BASE_URL}linktree/`} class="px-4 py-2 rounded-lg bg-primary hover:bg-primary/80 text-white font-semibold transition-colors">
-        🔗 Linktree öffnen
-      </a>
-      <a href="https://t.me/schnappdeal" target="_blank" rel="noopener" class="px-4 py-2 rounded-lg bg-accent/20 hover:bg-accent/30 text-accent border border-accent/40 font-semibold transition-colors">
-        📦 @schnappdeal
-      </a>
-    </div>
-
-    <div class="p-4 mb-8 rounded-lg bg-primary/10 border border-primary/20">
-      <p class="text-sm text-gray-300 m-0">
-        <strong class="text-primary">Hinweis:</strong> Diese Links sind Partner-Links (Affiliate). 
-        Wenn du darüber kaufst, erhalten wir eine kleine Provision — für dich entstehen keine zusätzlichen Kosten. 
-        So unterstützt du TechPulse kostenlos. 🙏
+<BaseLayout title="Angebote" description="Amazon-Deals im MyDealz-Stil: Top Deals, Preisaltag und direkte Kauf-Links.">
+  <div class="max-w-5xl mx-auto">
+    <section class="py-8 sm:py-10">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Angebote</h1>
+      <p class="text-gray-400 text-base sm:text-lg mb-6">
+        Handverlesene Amazon-Rabatte — kompakt wie MyDealz.
       </p>
-    </div>
+    </section>
 
-    {affiliateLinks.map((section) => (
+    {hotDeals.length > 0 && (
       <section class="mb-10">
-        <h2 class="text-xl font-bold text-white mb-4">{section.category}</h2>
-        <div class="grid gap-4">
-          {section.items.map((item) => (
+        <h2 class="text-xl font-extrabold text-white mb-4 flex items-center gap-2">
+          🔥 Top Deals
+        </h2>
+        <div class="space-y-3">
+          {hotDeals.map((deal) => (
             <a
-              href={item.url}
+              href={deal.link}
               target="_blank"
               rel="noopener sponsored"
-              class="block p-5 rounded-xl border-2 border-primary/30 bg-gradient-to-br from-gray-900 to-primary/5 hover:border-primary hover:from-primary/10 hover:to-gray-900 transition-all duration-300 group hover:scale-[1.02] shadow-lg shadow-primary/5 hover:shadow-primary/20"
+              class="flex items-center gap-4 rounded-xl border border-orange-500/30 bg-orange-500/5 p-4 hover:border-orange-400/60 transition-colors"
             >
-              <div class="flex items-center justify-between gap-4">
-                <div>
-                  <h3 class="text-lg font-semibold text-white group-hover:text-primary transition-colors">
-                    {item.name}
-                  </h3>
-                  <p class="text-gray-500 text-sm mt-1">{item.description}</p>
+              <div class="hidden sm:block w-16 h-16 rounded-lg overflow-hidden bg-gray-900 border border-gray-800 shrink-0">
+                <img src={deal.image} alt={deal.title} class="h-full w-full object-cover" loading="lazy" />
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-xs font-semibold uppercase tracking-wider rounded bg-orange-500/15 text-orange-300 border border-orange-500/30 px-2 py-0.5">
+                    {deal.category}
+                  </span>
+                  <span class="text-xs font-bold text-orange-300">🔥 Top Deal</span>
                 </div>
-                <span class="px-3 py-1.5 text-primary text-sm font-bold whitespace-nowrap bg-primary/10 rounded-lg group-hover:bg-primary group-hover:text-white transition-all">
-                  🛒 Kaufen →
-                </span>
+                <h3 class="text-base font-bold text-white truncate group-hover:text-orange-300 transition-colors">
+                  {deal.title}
+                </h3>
+              </div>
+              <div class="text-right shrink-0">
+                <div class="text-xl font-extrabold text-white">
+                  {deal.currency}{deal.priceNew}
+                </div>
+                <div class="text-xs text-gray-500 line-through">{deal.currency}{deal.priceOld}</div>
+                <div class="text-sm font-bold text-emerald-400">
+                  -{discount(deal.priceNew, deal.priceOld)}%
+                </div>
               </div>
             </a>
           ))}
         </div>
       </section>
-    ))}
+    )}
 
-    <div class="mt-12 pt-8 border-t border-gray-800 flex flex-wrap items-center justify-between gap-4">
-      <a href={`${import.meta.env.BASE_URL}blog/`} class="text-primary hover:text-accent transition-colors font-medium">
-        ← Zurück zum Blog
-      </a>
-      <a href={`${import.meta.env.BASE_URL}amazon/`} class="text-primary hover:text-accent transition-colors font-medium">
-        Amazon-Empfehlungen öffnen →
-      </a>
-    </div>
+    <section class="mb-14">
+      <h2 class="text-xl font-extrabold text-white mb-4">Alle Deals</h2>
+      <div class="space-y-2">
+        {normalDeals.map((deal) => (
+          <a
+            href={deal.link}
+            target="_blank"
+            rel="noopener sponsored"
+            class="flex items-center gap-4 rounded-xl border border-gray-800 bg-gray-900/40 p-4 hover:border-primary/50 transition-colors"
+          >
+            <div class="hidden sm:block w-16 h-16 rounded-lg overflow-hidden bg-gray-900 border border-gray-800 shrink-0">
+              <img src={deal.image} alt={deal.title} class="h-full w-full object-cover" loading="lazy" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs font-semibold uppercase tracking-wider rounded bg-primary/15 text-primary border border-primary/25 px-2 py-0.5">
+                  {deal.category}
+                </span>
+              </div>
+              <h3 class="text-base font-bold text-white truncate">
+                {deal.title}
+              </h3>
+            </div>
+            <div class="text-right shrink-0">
+              <div class="text-xl font-extrabold text-white">
+                {deal.currency}{deal.priceNew}
+              </div>
+              <div class="text-xs text-gray-500 line-through">{deal.currency}{deal.priceOld}</div>
+              <div class="text-sm font-bold text-emerald-400">
+                -{discount(deal.priceNew, deal.priceOld)}%
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="mb-14">
+      <div class="p-4 rounded-lg bg-primary/10 border border-primary/20">
+        <p class="text-sm text-gray-300 m-0">
+          <strong class="text-primary">Hinweis:</strong> Affiliate-Links. Wenn du darüber kaufst, erhalten wir eine kleine Provision — für dich entstehen keine zusätzlichen Kosten.
+        </p>
+      </div>
+    </section>
   </div>
 </BaseLayout>
