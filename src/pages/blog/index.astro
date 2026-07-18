@@ -4,55 +4,100 @@ import BaseLayout from '../layouts/BaseLayout';
 const allPosts = import.meta.glob('../../blog/*.md', { eager: true });
 const posts = Object.entries(allPosts).map(([path, post]: [string, any]) => ({
   slug: path.split('/').pop()?.replace('.md', ''),
-  category: (post.frontmatter.tags || [])[0] || 'angebote',
   ...post.frontmatter,
 }));
 const sortedPosts = posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-const dealLike = sortedPosts.filter(p => /amazon|deal|schnaepp|kauf|earn|honey/i.test(`${p.title} ${p.description}`));
-const postsToShow = dealLike.length > 0 ? dealLike : sortedPosts.slice(0, 9);
 const coverSrc = (slug: string) => `${import.meta.env.BASE_URL}covers/${slug}.svg`;
+
+// Markiere hier einzelne Slugs als Top-Deal für die Flame-Bewertung
+const hotSlugs = new Set([
+  'amazon-associates-deep-dive-passives-einkommen',
+  'telegram-channel-schnappdeal-deals'
+]);
 ---
 
-<BaseLayout title="Deal Guides" description="Kurze Kaufberichte und Deal-Tipps für konkrete Produkte und Amazon-Angebote.">
-  <div class="max-w-5xl mx-auto">
-    <section class="py-10 sm:py-14">
-      <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">Deal Guides</h1>
-      <p class="text-gray-400 text-base sm:text-lg max-w-2xl mb-6">
-        Kaufrelevante Inhalte ohne Rauschen.
-      </p>
-      <div class="flex flex-wrap gap-3 text-sm">
-        <a href={`${import.meta.env.BASE_URL}`} class="px-4 py-2 rounded-lg bg-primary hover:bg-primary/80 text-white font-semibold transition-colors">
-          Home
-        </a>
-        <a href={`${import.meta.env.BASE_URL}angebote/`} class="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white border border-white/10 font-semibold transition-colors">
-          Angebote
+<BaseLayout title="Angebote" description="Amazon-Deals im MyDealz-Stil: Top Deals mit Preis, Rabatt und direktem Kauf-Link.">
+  <div class="max-w-6xl mx-auto">
+    <section class="py-8 sm:py-10">
+      <div class="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Angebote</h1>
+          <p class="text-gray-400 text-base sm:text-lg">Handverlesene Amazon-Rabatte — kompakt wie MyDealz.</p>
+        </div>
+        <a href="https://t.me/schnappdeal" target="_blank" rel="noopener" class="px-4 py-2 rounded-lg bg-orange-500/20 hover:bg-orange-500/30 text-orange-300 border border-orange-500/40 font-semibold transition-colors text-sm">
+          📦 @schnappdeal
         </a>
       </div>
     </section>
 
-    <section>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {postsToShow.map((post) => (
-          <a href={`${import.meta.env.BASE_URL}blog/${post.slug}/`} class="block group">
-            <div class="rounded-xl border border-gray-800 bg-gray-900/50 overflow-hidden hover:border-primary/50 hover:bg-gray-900 transition-all duration-300">
-              <div class="aspect-video bg-gray-950">
-                <img
-                  src={coverSrc(post.slug)}
-                  alt={post.title}
-                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                  loading="lazy"
-                />
+    <!-- Banner-Top-Deals -->
+    <section class="mb-10">
+      <h2 class="text-xl font-extrabold text-white mb-4 flex items-center gap-2">
+        🔥 Top Angebote
+      </h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {sortedPosts.filter((post) => hotSlugs.has(post.slug)).map((post) => (
+          <a
+            href={`${import.meta.env.BASE_URL}blog/${post.slug}/`}
+            class="block rounded-2xl border border-orange-500/30 bg-gray-900/60 overflow-hidden hover:border-orange-400/70 transition-colors group"
+          >
+            <div class="aspect-[16/9] bg-gray-950">
+              <img src={coverSrc(post.slug)} alt={post.title} class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" loading="lazy" />
+            </div>
+            <div class="p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xs font-bold text-orange-300 bg-orange-500/15 border border-orange-500/30 rounded px-2 py-0.5">🔥 Top Deal</span>
               </div>
-              <div class="p-5">
-                <h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors mb-2">{post.title}</h3>
-                <p class="text-gray-500 text-sm line-clamp-2 mb-3">{post.description}</p>
-                <time datetime={post.date} class="text-gray-600 text-xs">
-                  {new Date(post.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'short', day: 'numeric' })}
-                </time>
-              </div>
+              <h3 class="text-base font-bold text-white truncate group-hover:text-orange-300 transition-colors">{post.title}</h3>
+              <p class="text-gray-500 text-xs mt-1 line-clamp-2">{post.description}</p>
             </div>
           </a>
         ))}
+      </div>
+    </section>
+
+    <!-- Alle Deals als Liste mit Bild -->
+    <section class="mb-14">
+      <h2 class="text-xl font-extrabold text-white mb-4">Alle Deals</h2>
+      <div class="space-y-2">
+        {sortedPosts.map((post) => {
+          const isHot = hotSlugs.has(post.slug);
+          return (
+            <a
+              href={`${import.meta.env.BASE_URL}blog/${post.slug}/`}
+              class="flex items-center gap-4 rounded-2xl border border-gray-800 bg-gray-900/40 p-4 hover:border-primary/50 transition-colors group"
+            >
+              <div class="hidden sm:block w-24 h-16 rounded-xl overflow-hidden bg-gray-900 border border-gray-800 shrink-0">
+                <img src={coverSrc(post.slug)} alt={post.title} class="h-full w-full object-cover" loading="lazy" />
+              </div>
+              <div class="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <span class="text-xs font-semibold uppercase tracking-wider rounded bg-primary/15 text-primary border border-primary/25 px-2 py-0.5">
+                    Angebot
+                  </span>
+                  {isHot && (
+                    <span class="text-xs font-bold text-orange-300 bg-orange-500/15 border border-orange-500/30 rounded px-2 py-0.5">🔥 Top Deal</span>
+                  )}
+                </div>
+                <h3 class="text-base font-bold text-white truncate group-hover:text-primary transition-colors">{post.title}</h3>
+                <p class="text-gray-500 text-xs truncate">{post.description}</p>
+              </div>
+              <div class="shrink-0">
+                <span class="inline-flex items-center justify-center px-3 py-2 rounded-lg bg-primary hover:bg-primary/80 text-white text-xs font-bold transition-colors">
+                  Jetzt kaufen
+                </span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    <section class="mb-14">
+      <div class="p-4 rounded-lg bg-primary/10 border border-primary/20">
+        <p class="text-sm text-gray-300 m-0">
+          <strong class="text-primary">Hinweis:</strong> Affiliate-Links. Wenn du darüber kaufst, erhalten wir eine kleine Provision — für dich entstehen keine zusätzlichen Kosten.
+        </p>
       </div>
     </section>
   </div>

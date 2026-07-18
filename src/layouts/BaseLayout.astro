@@ -1,113 +1,21 @@
----
-export interface Props {
-  title: string;
-  description?: string;
-  image?: string;
-  canonicalURL?: string;
-  type?: string;
-}
+<header class="border-b border-gray-800 bg-gray-950/80 backdrop-blur-lg sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+    <a href={import.meta.env.BASE_URL} class="flex items-center gap-2 group">
+      <span class="text-2xl">🔥</span>
+      <span class="text-xl font-extrabold tracking-tight text-white group-hover:text-orange-300 transition-colors">TechPulse Deals</span>
+    </a>
+    <div class="text-sm font-medium text-gray-400">Amazon-Deals · klar & direkt</div>
+  </div>
+</header>
 
-const { 
-  title, 
-  description = 'TechPulse – Amazon Deals & handverlesene Angebote mit Affiliate-Links.', 
-  image = '/techpulse-blog/og-image.png', 
-  canonicalURL,
-  type = 'website'
-} = Astro.props;
-
-const siteUrl = 'https://balu17051.github.io';
-const fullUrl = canonicalURL || `${siteUrl}${Astro.url.pathname}`;
-const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
-import VisitorCounter from '../components/VisitorCounter.astro';
----
-
-<!doctype html>
-<html lang="de" class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <meta name="keywords" content="Amazon Deals, Schnäppchen, Angebote, Affiliate" />
-    <meta name="author" content="Andreas Stehmann" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="google-site-verification" content="googlea756a35158db6d58" />
-    <link rel="canonical" href={fullUrl} />
-    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <title>{title} | TechPulse</title>
-    
-    {/* OpenGraph */}
-    <meta property="og:type" content={type} />
-    <meta property="og:title" content={`${title} | TechPulse`} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={fullUrl} />
-    <meta property="og:site_name" content="TechPulse" />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content={`${title} | TechPulse`} />
-    <meta property="og:locale" content="de_DE" />
-    
-    {/* Twitter Card */}
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${title} | TechPulse`} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-    
-    {/* Structured Data */}
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": type === 'article' ? 'Article' : 'WebSite',
-      "headline": `${title} | TechPulse`,
-      "description": description,
-      "url": fullUrl,
-      "author": {
-        "@type": "Person",
-        "name": "Andreas Stehmann"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "TechPulse",
-        "logo": {
-          "@type": "ImageObject",
-          "url": `${siteUrl}${image}`
-        }
-      },
-      ...(type === 'article' && {
-        "datePublished": Astro.props.pubDate,
-        "dateModified": Astro.props.updatedDate || Astro.props.pubDate,
-      }),
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": fullUrl
+<script>
+  // Optional: route-slug auf "angebote" normieren, damit nicht mehrere Ansichten existieren
+  if (typeof history !== 'undefined') {
+    try {
+      const p = new URL(location.href).pathname;
+      if (p !== '/angebote/' && p !== '/') {
+        history.replaceState(null, '', '/angebote/');
       }
-    })} />
-  </head>
-  <body class="bg-gray-950 text-gray-100 min-h-screen font-sans antialiased">
-    <nav class="border-b border-gray-800 bg-gray-950/80 backdrop-blur-lg sticky top-0 z-50">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-        <a href={import.meta.env.BASE_URL} class="flex items-center gap-2 group">
-          <span class="text-2xl">⚡</span>
-          <span class="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent group-hover:from-accent group-hover:to-primary transition-all duration-300">
-            TechPulse
-          </span>
-        </a>
-        <div class="flex items-center gap-6 text-sm font-medium">
-          <a href={`${import.meta.env.BASE_URL}angebote/`} class="text-gray-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-primary/10 hover:text-primary font-medium">Angebote</a>
-        </div>
-      </div>
-    </nav>
-
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
-      <slot />
-    </main>
-
-    <footer class="border-t border-gray-800 mt-16">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center text-gray-500 text-sm">
-        <p>© 2026 TechPulse Deals</p>
-        <VisitorCounter />
-      </div>
-    </footer>
-  </body>
-</html>
+    } catch (e) {}
+  }
+</script>
